@@ -43,7 +43,7 @@
                     <mat-label>Select a COI</mat-label>
                     <mat-select
                         #coi
-                        [(ngModel)]="selectedCoi"
+                        [value]="selectedCoi"
                         (selectionChange)="onCoiSelection($event)"
                     >
                         <mat-option

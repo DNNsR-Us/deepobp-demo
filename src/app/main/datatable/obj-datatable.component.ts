@@ -2,6 +2,7 @@ import { Component, OnDestroy, OnInit, ViewEncapsulation } from "@angular/core";
 import { HttpClient } from "@angular/common/http";
 import { Subject } from "rxjs";
 import { MatDialog } from "@angular/material/dialog";
+import {environment } from '../../../environments/environment'
 
 import { debounceTime, distinctUntilChanged, takeUntil } from "rxjs/operators";
 
@@ -28,6 +29,8 @@ export class ObjDatatableComponent implements OnInit, OnDestroy {
     selected = [];
     loadingIndicator: boolean;
     reorderable: boolean;
+
+    apiBaseUrl: string = environment.apiBaseUrl;
 
     cois: Coi[] = [
         { value: "covid19", viewValue: "Covid-19 News" },
@@ -76,7 +79,7 @@ export class ObjDatatableComponent implements OnInit, OnDestroy {
         this.selectedCoi = "nfl";
         this._httpClient
             .get(
-                "http://127.0.0.1:5000/news?url=nfl"
+                `${this.apiBaseUrl}/news?url=nfl`
             )
             .pipe(takeUntil(this._unsubscribeAll))
             .subscribe((articles: any) => {
@@ -106,7 +109,7 @@ export class ObjDatatableComponent implements OnInit, OnDestroy {
         this.selectedCoi = event.value;
         this._httpClient
             .get(
-                `http://127.0.0.1:5000/news?url=${this.selectedCoi}`
+                `${this.apiBaseUrl}/news?url=${this.selectedCoi}`
             )
             .pipe(takeUntil(this._unsubscribeAll))
             .subscribe((articles: any) => {

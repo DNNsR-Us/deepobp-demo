@@ -1,7 +1,8 @@
 # DeepOBP with Fuse Angular and Docker
 Dependencies: 
    * for local development Docker Desktop must be installed and running
-   * To see data, the back end (must be running
+   * To see data, the back end must be running (see https://github.com/DNNsR-Us/deepobp-demo-backend/tree/feature/obp-35)
+   * Edit src/environments/environment.ts and set the apiBaseUrl to match your back end url
 
 In a terminal cd to the root directory of the repo.
 Run `docker-compose up -d --build`
