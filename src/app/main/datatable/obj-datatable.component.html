@@ -1,0 +1,172 @@
+<div id="ngx-datatable" class="page-layout simple fullwidth docs">
+    <!-- HEADER -->
+    <div
+        class="header accent p-24 h-160"
+        fxLayout="column"
+        fxLayoutAlign="center center"
+        fxLayout.gt-xs="row"
+        fxLayoutAlign.gt-xs="space-between center"
+    >
+        <div
+            fxLayout="column"
+            fxLayoutAlign="center center"
+            fxLayout.gt-xs="column"
+            fxLayoutAlign.gt-xs="center start"
+        >
+            <div fxLayout="row" fxLayoutAlign="start center">
+                <mat-icon class="secondary-text s-18">home</mat-icon>
+                <mat-icon class="secondary-text s-16">chevron_right</mat-icon>
+                <span class="secondary-text">Datatable</span>
+            </div>
+            <div class="h2 mt-16">Deep Object Based Production (OBP)</div>
+        </div>
+
+        <!-- <a mat-raised-button class="reference-button mt-16 mt-sm-0"
+           href="https://github.com/swimlane/ngx-datatable"
+           target="_blank">
+            <mat-icon class="mr-8">link</mat-icon>
+            <span>Reference</span>
+        </a> -->
+    </div>
+    <!-- / HEADER -->
+
+    <!-- Select a COI dropdown -->
+    <hr />
+    <mat-card>
+        <div class="fuse-widget-front">
+            <div
+                class="pl-16 pr-8 py-16 h-52"
+                fxLayout="row"
+                fxLayoutAlign="space-between center"
+            >
+                <mat-form-field>
+                    <mat-label>Select a COI</mat-label>
+                    <mat-select
+                        #coi
+                        [value]="selectedCoi"
+                        (selectionChange)="onCoiSelection($event)"
+                    >
+                        <mat-option
+                            *ngFor="let coi of cois"
+                            [value]="coi.value"
+                        >
+                            {{ coi.viewValue }}
+                        </mat-option>
+                    </mat-select>
+                </mat-form-field>
+            </div>
+        </div>
+    </mat-card>
+
+    <!-- CONTENT -->
+    <div class="content p-24">
+        <!-- <p class="mb-32">
+            <b>ngx-datatable</b> is a Angular component for presenting large and complex data.
+            It has all the features you would expect from any other table but in a light package with no external
+            dependencies. The table was designed to be extremely flexible and light; it doesn't make any assumptions
+            about your data or how you: filter, sort or page it.
+        </p> -->
+
+        <ngx-datatable
+            class="material"
+            [rows]="rows"
+            [loadingIndicator]="loadingIndicator"
+            [columnMode]="'force'"
+            [headerHeight]="48"
+            [footerHeight]="56"
+            [rowHeight]="'auto'"
+            [scrollbarH]="true"
+            [reorderable]="reorderable"
+            [selectionType]="'checkbox'"
+            [limit]="10"
+            (activate)="onActivate($event)"
+            (select)="onSelect($event)"
+        >
+            <ngx-datatable-column
+                [width]="48"
+                [canAutoResize]="false"
+                [sortable]="false"
+            >
+                <ng-template
+                    ngx-datatable-header-template
+                    let-value="value"
+                    let-allRowsSelected="allRowsSelected"
+                    let-selectFn="selectFn"
+                >
+                    <mat-checkbox
+                        [checked]="allRowsSelected"
+                        (change)="selectFn(!allRowsSelected)"
+                    ></mat-checkbox>
+                </ng-template>
+
+                <ng-template
+                    ngx-datatable-cell-template
+                    let-value="value"
+                    let-isSelected="isSelected"
+                    let-onCheckboxChangeFn="onCheckboxChangeFn"
+                >
+                    <mat-checkbox
+                        [checked]="isSelected"
+                        (change)="onCheckboxChangeFn($event)"
+                    ></mat-checkbox>
+                </ng-template>
+            </ngx-datatable-column>
+
+            <ngx-datatable-column
+                name="Title"
+                prop="title"
+            ></ngx-datatable-column>
+
+            <ngx-datatable-column
+                name="Published At"
+                prop="publishedAt"
+            ></ngx-datatable-column>
+
+            <ngx-datatable-column
+                name="Name"
+                prop="sourceName"
+            ></ngx-datatable-column>
+        </ngx-datatable>
+    </div>
+
+    <div class="fuse-widget-front">
+        <mat-card>
+            <h4>
+                Object Candidates <small>({{ selected.length }})</small>
+            </h4>
+            <div style="max-height: 200px; overflow-y: scroll;">
+                <table class="blueTable">
+                    <tr>
+                        <th>Object Name</th>
+                        <th>Object Type</th>
+                        <th>Source</th>
+                        <th>Create Object?</th>
+                    </tr>
+                    <tr *ngFor="let obj of selectedObjects">
+                        <td>{{ obj.name }}</td>
+                        <td>{{ obj.type }}</td>
+                        <td>{{ obj.source }}</td>
+                        <td style="text-align: center;">
+                            <div style="display: inline-block;">
+                                <button
+                                    mat-raised-button
+                                    color="primary"
+                                    (click)="readArticle(obj)"
+                                >
+                                    Yes</button
+                                >&nbsp;
+                                <button
+                                    mat-raised-button
+                                    color="primary"
+                                    (click)="discardObj()"
+                                >
+                                    No
+                                </button>
+                            </div>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+        </mat-card>
+    </div>
+</div>

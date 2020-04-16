@@ -1,6 +1,33 @@
-# Deepobp
+# DeepOBP with Fuse Angular and Docker
+Dependencies: 
+   * for local development Docker Desktop must be installed and running
+   * To see data, the back end must be running (see https://github.com/DNNsR-Us/deepobp-demo-backend/tree/feature/obp-35)
+   * Edit src/environments/environment.ts and set the apiBaseUrl to match your back end url
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 8.3.9.
+In a terminal cd to the root directory of the repo.
+Run `docker-compose up -d --build`
+Allow a few minutes the first time for build to complete.
+Run `docker logs deepobp` to check the logs in the container.
+
+You should see something like:
+Time: 4497ms
+: Compiled successfully.
+
+Navigate to `http://localhost:4201/datatable`
+
+########################################################################################
+The instructions below are for running the application outside of the container and for
+ongoing development as well as generating a production build.
+
+# Fuse - Angular
+
+Material Design Admin Template with Angular 8 and Angular Material
+
+## The Community
+
+Share your ideas, discuss Fuse and help each other.
+
+[Click here](http://fusetheme.com/community) to see our Community page.
 
 ## Development server
 
