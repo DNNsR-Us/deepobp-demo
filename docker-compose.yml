@@ -2,7 +2,7 @@ version: '3.7'
 
 services:
 
-  example:
+  demo:
     container_name: deepobp
     build:
       context: .
