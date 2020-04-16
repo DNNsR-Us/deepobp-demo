@@ -1,7 +1,7 @@
 import { InMemoryDbService } from 'angular-in-memory-web-api';
 
 // import { ProjectDashboardDb } from 'app/fake-db/dashboard-project';
-// import { AnalyticsDashboardDb } from 'app/fake-db/dashboard-analytics';
+import { AnalyticsDashboardDb } from 'app/fake-db/dashboard-analytics';
 // import { CalendarFakeDb } from 'app/fake-db/calendar';
 // import { ECommerceFakeDb } from 'app/fake-db/e-commerce';
 // import { AcademyFakeDb } from 'app/fake-db/academy';
@@ -28,7 +28,7 @@ export class FakeDbService implements InMemoryDbService
             // Dashboards
             // 'project-dashboard-projects' : ProjectDashboardDb.projects,
             // 'project-dashboard-widgets'  : ProjectDashboardDb.widgets,
-            // 'analytics-dashboard-widgets': AnalyticsDashboardDb.widgets,
+            'analytics-dashboard-widgets': AnalyticsDashboardDb.widgets,
 
             // // Calendar
             // 'calendar': CalendarFakeDb.data,

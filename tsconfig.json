@@ -27,5 +27,6 @@
     "angularCompilerOptions": {
         "fullTemplateTypeCheck": false,
         "strictInjectionParameters": false
-    }
+    },
+    "moduleResolution": "node"
 }

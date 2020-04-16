@@ -19,7 +19,7 @@
         <div fxLayout="row" fxLayoutAlign="start center" fxFlex="1 0 auto">
             <mat-form-field appearance="outline" fxFlex="50" class="pr-4">
                 <mat-label>Object Type</mat-label>
-                <input matInput formControlName="objectType" [(ngModel)]="_data.article.type" required />
+                <input matInput formControlName="objectType" required />
                 <mat-icon matSuffix class="secondary-text"
                     >account_circle</mat-icon
                 >
@@ -67,7 +67,6 @@
                     [matDatepicker]="startDatePicker"
                     name="dateOfBirth"
                     formControlName="dateOfBirth"
-                    [(ngModel)]="_data.extra.dob"
                 />
                 <mat-datepicker-toggle
                     matSuffix
@@ -80,7 +79,7 @@
         <div fxLayout="row" fxLayoutAlign="start center" fxFlex="1 0 auto">
             <mat-form-field appearance="outline" fxFlex="33">
                 <mat-label>Source</mat-label>
-                <input matInput formControlName="source" [(ngModel)]="_data.article.source" required />
+                <input matInput formControlName="source" required />
                 <mat-icon matSuffix class="secondary-text"
                     >location_city</mat-icon
                 >
@@ -129,7 +128,7 @@
         <div fxLayout="row" fxLayoutAlign="start center" fxFlex="1 0 auto">
             <mat-form-field appearance="outline" fxFlex="33">
                 <mat-label>Created By</mat-label>
-                <input matInput formControlName="createdBy" [(ngModel)]="_data.extra.createdBy" />
+                <input matInput formControlName="createdBy" />
                 <mat-icon matSuffix class="secondary-text"
                     >location_city</mat-icon
                 >

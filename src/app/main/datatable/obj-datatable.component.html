@@ -19,6 +19,7 @@
                 <span class="secondary-text">Datatable</span>
             </div>
             <div class="h2 mt-16">Deep Object Based Production (OBP)</div>
+            <div class="h3 mt-10">{{ selectedCoi | uppercase }}</div>
         </div>
 
         <!-- <a mat-raised-button class="reference-button mt-16 mt-sm-0"
@@ -29,34 +30,6 @@
         </a> -->
     </div>
     <!-- / HEADER -->
-
-    <!-- Select a COI dropdown -->
-    <hr />
-    <mat-card>
-        <div class="fuse-widget-front">
-            <div
-                class="pl-16 pr-8 py-16 h-52"
-                fxLayout="row"
-                fxLayoutAlign="space-between center"
-            >
-                <mat-form-field>
-                    <mat-label>Select a COI</mat-label>
-                    <mat-select
-                        #coi
-                        [value]="selectedCoi"
-                        (selectionChange)="onCoiSelection($event)"
-                    >
-                        <mat-option
-                            *ngFor="let coi of cois"
-                            [value]="coi.value"
-                        >
-                            {{ coi.viewValue }}
-                        </mat-option>
-                    </mat-select>
-                </mat-form-field>
-            </div>
-        </div>
-    </mat-card>
 
     <!-- CONTENT -->
     <div class="content p-24">

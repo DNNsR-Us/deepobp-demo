@@ -2,15 +2,18 @@
     "extends": "./tsconfig.json",
     "compilerOptions": {
         "outDir": "./out-tsc/app",
-        "types": [
-            "node"
-        ]
+        "types": ["node"]
     },
-  "files": [
-    "src/main.ts",
-    "src/polyfills.ts"
-  ],
-    "include": [
-        "src/**/*.d.ts"
+    "files": ["src/main.ts", "src/polyfills.ts"],
+    "include": ["src/**/*.ts"],
+    "exclude": [
+        "src/test.ts",
+        "src/**/*.spec.ts",
+        "src/@fuse/services/copier.service.ts",
+        "src/app/app-routing.module.ts",
+        "src/app/fake-db/fa-dictionary.ts",
+        "src/app/models/article.ts",
+        "src/environments/environment.hmr.ts",
+        "src/environments/environment.prod.ts"
     ]
 }
