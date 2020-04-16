@@ -15,6 +15,7 @@ import { FuseWidgetModule } from '@fuse/components/widget/widget.module';
 
 import { AnalyticsDashboardComponent } from 'app/main/analytics/analytics.component';
 import { AnalyticsDashboardService } from 'app/main/analytics/analytics.service';
+import { MatCardModule } from '@angular/material/card';
 
 const routes: Routes = [
     {
@@ -39,6 +40,7 @@ const routes: Routes = [
         MatMenuModule,
         MatSelectModule,
         MatTabsModule,
+        MatCardModule,
 
         AgmCoreModule.forRoot({
             apiKey: 'AIzaSyD81ecsCj4yYpcXSLFcYU97PvRsE_X8Bx8'
