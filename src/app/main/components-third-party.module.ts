@@ -7,11 +7,10 @@ import { NgxDatatableModule } from "@swimlane/ngx-datatable";
 
 import { FuseSharedModule } from "@fuse/shared.module";
 
-import { KnowledgeBaseService } from "./datatable/knowledge-base.service";
+// import { KnowledgeBaseService } from "./datatable/knowledge-base.service";
 
-// import { GoogleMapsModule } from 'app/main/documentation/components-third-party/google-maps/google-maps.module';
 import { ObjDatatableComponent } from "app/main/datatable/obj-datatable.component";
-import { KnowledgeBaseArticleComponent } from "./datatable/dialogs/article/article.component";
+import { ObjectNominatorComponent } from "./datatable/dialogs/object-nominator/object-nominator.component";
 import { MatDialogModule } from "@angular/material/dialog";
 import { MatToolbarModule } from "@angular/material/toolbar";
 import { MatDatepickerModule } from "@angular/material/datepicker";
@@ -19,24 +18,26 @@ import { MatCardModule } from "@angular/material/card";
 import { MatInputModule } from "@angular/material/input";
 import { MatSelectModule } from "@angular/material/select";
 import { MatFormFieldModule } from "@angular/material/form-field";
+import { ReadbookComponent } from './readbook/readbook.component';
+import { SharedService } from './shared.service';
 // import { DemoComponent } from './demo/demo.component';
 
 const routes = [
     {
         path: "datatable",
         component: ObjDatatableComponent,
-        resolve: {
-            knowledgeBase: KnowledgeBaseService,
-        },
+        // resolve: {
+        //     knowledgeBase: KnowledgeBaseService,
+        // },
     },
-    // {
-    //     path     : 'demo',
-    //     component: DemoComponent
-    // },
+    {
+        path     : 'readbook',
+        component: ReadbookComponent
+    },
 ];
 
 @NgModule({
-    declarations: [ObjDatatableComponent, KnowledgeBaseArticleComponent],
+    declarations: [ObjDatatableComponent, ObjectNominatorComponent, ReadbookComponent],
     imports: [
         RouterModule.forChild(routes),
 
@@ -54,11 +55,12 @@ const routes = [
         FuseSharedModule,
 
         MatSelectModule,
-        MatDatepickerModule,
-
-        // GoogleMapsModule
+        MatDatepickerModule
     ],
-    providers: [KnowledgeBaseService],
-    entryComponents: [KnowledgeBaseArticleComponent],
+    providers: [
+        SharedService,
+        // KnowledgeBaseService
+    ],
+    entryComponents: [ObjectNominatorComponent],
 })
 export class ComponentsThirdPartyModule {}

@@ -2,13 +2,15 @@ import { Component, OnDestroy, OnInit, ViewEncapsulation } from "@angular/core";
 import { HttpClient } from "@angular/common/http";
 import { Subject } from "rxjs";
 import { MatDialog } from "@angular/material/dialog";
-import {environment } from '../../../environments/environment'
+import { environment } from "../../../environments/environment";
 
 import { debounceTime, distinctUntilChanged, takeUntil } from "rxjs/operators";
 
 import { fuseAnimations } from "@fuse/animations";
 
-import { KnowledgeBaseArticleComponent } from "app/main/datatable/dialogs/article/article.component";
+import { ObjectNominatorComponent } from "app/main/datatable/dialogs/object-nominator/object-nominator.component";
+
+import { SharedService } from "../shared.service";
 
 interface Coi {
     value: string;
@@ -49,18 +51,22 @@ export class ObjDatatableComponent implements OnInit, OnDestroy {
      * Constructor
      *
      * @param {HttpClient} _httpClient
-     * @param {KnowledgeBaseService} _knowledgeBaseService
      * @param {MatDialog} _matDialog
+     * @param {SharedService} _sharedService
      *
      */
     constructor(
         private _httpClient: HttpClient,
-        // private _knowledgeBaseService: KnowledgeBaseService,
-        private _matDialog: MatDialog
+        private _matDialog: MatDialog,
+        private _sharedService: SharedService
     ) {
         // Set the defaults
         this.loadingIndicator = true;
         this.reorderable = true;
+
+        this._sharedService.sharedCoi.subscribe(
+            (coi) => (this.selectedCoi = coi)
+        );
 
         // Set the private defaults
         this._unsubscribeAll = new Subject();
@@ -74,13 +80,11 @@ export class ObjDatatableComponent implements OnInit, OnDestroy {
      * On init
      */
     ngOnInit(): void {
-        console.log("in ngOnInit");
-        // this.resultType = "covid19";
-        this.selectedCoi = "nfl";
+        this._sharedService.sharedCoi.subscribe(
+            (coi) => (this.selectedCoi = coi)
+        );
         this._httpClient
-            .get(
-                `${this.apiBaseUrl}/news?url=nfl`
-            )
+            .get(`${this.apiBaseUrl}/news?url=${this.selectedCoi}`)
             .pipe(takeUntil(this._unsubscribeAll))
             .subscribe((articles: any) => {
                 this.rows = articles;
@@ -98,29 +102,7 @@ export class ObjDatatableComponent implements OnInit, OnDestroy {
     }
 
     // Custom functions
-
-    onCoiSelection(event) {
-        console.log("in onCoiSelection, event is", event);
-
-        // Reset selections
-        this.selected = [];
-        this.selectedObjects = [];
-        // this.resultType = "covid19";
-        this.selectedCoi = event.value;
-        this._httpClient
-            .get(
-                `${this.apiBaseUrl}/news?url=${this.selectedCoi}`
-            )
-            .pipe(takeUntil(this._unsubscribeAll))
-            .subscribe((articles: any) => {
-                this.rows = articles;
-                this.loadingIndicator = false;
-            });
-    }
-
     onSelect({ selected }) {
-        console.log("Select Event", selected, this.selected);
-
         this.selected.splice(0, this.selected.length);
         this.selected.push(...selected);
 
@@ -136,7 +118,6 @@ export class ObjDatatableComponent implements OnInit, OnDestroy {
                 source: record.sourceName,
             });
         });
-        console.log("in callback, selectedObjects is", this.selectedObjects);
     }
 
     onActivate(event) {
@@ -161,15 +142,15 @@ export class ObjDatatableComponent implements OnInit, OnDestroy {
      * @param article
      */
     readArticle(article): void {
-        console.log(article);
-        this._matDialog.open(KnowledgeBaseArticleComponent, {
-            panelClass: "knowledgebase-article-dialog",
+        this._matDialog.open(ObjectNominatorComponent, {
+            panelClass: "object-nominator-dialog",
             data: {
                 article: article,
                 extra: {
-                    middle: "Louise",
-                    dob: new Date('1975-06-02'),
+                    middle: "unknown",
+                    dob: new Date("1975-06-02"),
                     createdBy: "ReadyUser1",
+                    classification: "unclassified",
                 },
             },
         });

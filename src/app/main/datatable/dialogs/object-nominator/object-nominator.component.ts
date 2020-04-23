@@ -10,12 +10,12 @@ import { FormBuilder, FormGroup, Validators } from "@angular/forms";
 import { Subject } from "rxjs";
 
 @Component({
-    selector: "knowledge-base-article",
-    templateUrl: "./article.component.html",
-    styleUrls: ["./article.component.scss"],
+    selector: "object-nominator",
+    templateUrl: "./object-nominator.component.html",
+    styleUrls: ["./object-nominator.component.scss"],
     encapsulation: ViewEncapsulation.None,
 })
-export class KnowledgeBaseArticleComponent implements OnInit, OnDestroy {
+export class ObjectNominatorComponent implements OnInit, OnDestroy {
     // dialogRef: any;
     rows: any[];
     form: FormGroup;
@@ -28,12 +28,12 @@ export class KnowledgeBaseArticleComponent implements OnInit, OnDestroy {
     /**
      * Constructor
      *
-     * @param {MatDialogRef<KnowledgeBaseArticleComponent>} matDialogRef
+     * @param {MatDialogRef<ObjectNominatorComponent>} matDialogRef
      * @param _data
      * @param {FormBuilder} _formBuilder
      */
     constructor(
-        public matDialogRef: MatDialogRef<KnowledgeBaseArticleComponent>,
+        public matDialogRef: MatDialogRef<ObjectNominatorComponent>,
         @Inject(MAT_DIALOG_DATA) public _data: any,
         private _formBuilder: FormBuilder
     ) {}
@@ -42,7 +42,6 @@ export class KnowledgeBaseArticleComponent implements OnInit, OnDestroy {
      * On init
      */
     ngOnInit(): void {
-        // form fields
         // Reactive Form
         this.form = this._formBuilder.group({
             createdDate: [
@@ -66,6 +65,23 @@ export class KnowledgeBaseArticleComponent implements OnInit, OnDestroy {
             dateOfBirth: [""],
             source: ["", Validators.required],
             classification: ["", Validators.required],
+        });
+
+        this.setValue();
+    }
+
+    setValue() {
+        const name = this._data.article.name.split(" ");
+        this.form.setValue({
+            firstName: name[0],
+            middleName: this._data.extra.middle,
+            lastName: name[1],
+            objectType: this._data.article.type,
+            dateOfBirth: this._data.extra.dob,
+            source: this._data.article.source,
+            classification: this._data.extra.classification,
+            createdDate: this.todayDate,
+            createdBy: this._data.extra.createdBy,
         });
     }
 

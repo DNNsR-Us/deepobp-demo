@@ -2,52 +2,47 @@ import { FuseNavigation } from '@fuse/types';
 
 export const navigation: FuseNavigation[] = [
     {
-        id       : 'applications',
-        title    : 'Applications',
-        translate: 'NAV.APPLICATIONS',
+        id       : 'navigation',
+        title    : 'Navigation',
+        // translate: 'NAV.APPLICATIONS',
         type     : 'group',
         children : [
             {
-                id       : 'sample',
-                title    : 'Sample',
-                translate: 'NAV.SAMPLE.TITLE',
+                id       : 'dashboard',
+                title    : 'Dashboard',
+                // translate: 'NAV.SAMPLE.TITLE',
                 type     : 'item',
-                icon     : 'email',
-                url      : '/sample',
-                badge    : {
-                    title    : '25',
-                    translate: 'NAV.SAMPLE.BADGE',
-                    bg       : '#F44336',
-                    fg       : '#FFFFFF'
-                }
+                icon     : 'dashboard', // or bar_chart
+                url      : '/',
+                // badge    : {
+                //     title    : '25',
+                //     translate: 'NAV.SAMPLE.BADGE',
+                //     bg       : '#F44336',
+                //     fg       : '#FFFFFF'
+                // }
             },
             {
-                id       : 'demo',
-                title    : 'Demo',
-                translate: 'NAV.DEMO.TITLE',
+                id       : 'dictionary',
+                title    : 'FA Dictionary',
                 type     : 'item',
-                icon     : 'email',
-                url      : '/demo',
-                badge    : {
-                    title    : '25',
-                    translate: 'NAV.DEMO.BADGE',
-                    bg       : '#F44336',
-                    fg       : '#FFFFFF'
-                }
+                icon     : 'library_books',
+                url      : '/fad',
             },
             {
                 id       : 'datatable',
-                title    : 'Datatable',
+                title    : 'Document Selection',
                 // translate: 'NAV.DEMO.TITLE',
                 type     : 'item',
-                icon     : 'email',
+                icon     : 'list', // or collections
                 url      : '/datatable',
-                badge    : {
-                    title    : '25',
-                    translate: 'NAV.DEMO.BADGE',
-                    bg       : '#F44336',
-                    fg       : '#FFFFFF'
-                }
+            },
+            {
+                id       : 'readbook',
+                title    : 'Create Readbook',
+                // translate: 'NAV.DEMO.TITLE',
+                type     : 'item',
+                icon     : 'book',
+                url      : '/readbook',
             }
         ]
     }

@@ -5,6 +5,7 @@ Dependencies:
    * Edit src/environments/environment.ts and set the apiBaseUrl to match your back end url
 
 In a terminal cd to the root directory of the repo.
+Windows only - may need to run `set COMPOSE_CONVERT_WINDOWS_PATHS=1`
 Run `docker-compose up -d --build`
 Allow a few minutes the first time for build to complete.
 Run `docker logs deepobp` to check the logs in the container.

@@ -19,17 +19,18 @@ import { fuseConfig } from 'app/fuse-config';
 import { FakeDbService } from 'app/fake-db/fake-db.service';
 import { AppComponent } from 'app/app.component';
 import { LayoutModule } from 'app/layout/layout.module';
-import { SampleModule } from 'app/main/sample/sample.module';
+import { FadModule } from 'app/main/fad/fad.module';
 
 import { ComponentsThirdPartyModule } from 'app/main/components-third-party.module'
 // import { KnowledgeBaseModule } from 'app/main/datatable/knowledge-base.module'
 import { InMemoryWebApiModule } from 'angular-in-memory-web-api';
+import { AnalyticsDashboardModule } from 'app/main/analytics/analytics.module'
 
 const appRoutes: Routes = [
-    // {
-    //     path      : '**',
-    //     redirectTo: 'sample'
-    // },
+    {
+        path      : '**',
+        redirectTo: '/'
+    },
     // {
     //     path     : 'datatable',
     //     loadChildren: () => KnowledgeBaseModule
@@ -72,8 +73,9 @@ const appRoutes: Routes = [
 
         // App modules
         LayoutModule,
-        SampleModule,
+        FadModule,
         ComponentsThirdPartyModule,
+        AnalyticsDashboardModule
         // KnowledgeBaseModule
     ],
     bootstrap   : [
