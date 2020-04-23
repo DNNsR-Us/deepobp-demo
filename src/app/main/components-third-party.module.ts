@@ -18,8 +18,10 @@ import { MatCardModule } from "@angular/material/card";
 import { MatInputModule } from "@angular/material/input";
 import { MatSelectModule } from "@angular/material/select";
 import { MatFormFieldModule } from "@angular/material/form-field";
-import { ReadbookComponent } from './readbook/readbook.component';
-import { SharedService } from './shared.service';
+import { ReadbookComponent } from "./readbook/readbook.component";
+import { SharedService } from "./shared.service";
+import { HighlightPipe } from "../pipe/highlight.pipe";
+
 // import { DemoComponent } from './demo/demo.component';
 
 const routes = [
@@ -31,13 +33,18 @@ const routes = [
         // },
     },
     {
-        path     : 'readbook',
-        component: ReadbookComponent
+        path: "readbook",
+        component: ReadbookComponent,
     },
 ];
 
 @NgModule({
-    declarations: [ObjDatatableComponent, ObjectNominatorComponent, ReadbookComponent],
+    declarations: [
+        ObjDatatableComponent,
+        ObjectNominatorComponent,
+        ReadbookComponent,
+        HighlightPipe,
+    ],
     imports: [
         RouterModule.forChild(routes),
 
@@ -55,10 +62,11 @@ const routes = [
         FuseSharedModule,
 
         MatSelectModule,
-        MatDatepickerModule
+        MatDatepickerModule,
     ],
     providers: [
         SharedService,
+        HighlightPipe,
         // KnowledgeBaseService
     ],
     entryComponents: [ObjectNominatorComponent],
