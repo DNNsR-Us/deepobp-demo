@@ -11,6 +11,7 @@ import { fuseAnimations } from "@fuse/animations";
 import { ObjectNominatorComponent } from "app/main/datatable/dialogs/object-nominator/object-nominator.component";
 
 import { SharedService } from "../shared.service";
+import { HighlightPipe } from "../../pipe/highlight.pipe";
 
 interface Coi {
     value: string;
@@ -23,6 +24,7 @@ interface Coi {
     styleUrls: ["./obj-datatable.component.scss"],
     encapsulation: ViewEncapsulation.None,
     animations: fuseAnimations,
+    providers: [HighlightPipe],
 })
 export class ObjDatatableComponent implements OnInit, OnDestroy {
     // dialogRef: any;
@@ -43,6 +45,13 @@ export class ObjDatatableComponent implements OnInit, OnDestroy {
 
     selectedCoi: string;
     selectedObjects = [];
+    str: string =
+        "is a Angular component for presenting large and complex data.\
+            It has all the features you would expect from any other table but in a light package with no external\
+            dependencies. The table was designed to be extremely flexible and light; it doesn't make any assumptions\
+            about your data or how you: filter, sort or page it.";
+    searchStr: string;
+    value = "";
 
     // Private
     private _unsubscribeAll: Subject<any>;
@@ -53,12 +62,14 @@ export class ObjDatatableComponent implements OnInit, OnDestroy {
      * @param {HttpClient} _httpClient
      * @param {MatDialog} _matDialog
      * @param {SharedService} _sharedService
+     * @param {HighlightPipe} highlight
      *
      */
     constructor(
         private _httpClient: HttpClient,
         private _matDialog: MatDialog,
-        private _sharedService: SharedService
+        private _sharedService: SharedService,
+        private highlight: HighlightPipe
     ) {
         // Set the defaults
         this.loadingIndicator = true;
@@ -90,6 +101,8 @@ export class ObjDatatableComponent implements OnInit, OnDestroy {
                 this.rows = articles;
                 this.loadingIndicator = false;
             });
+
+        this.str = this.highlight.transform(this.str, null);
     }
 
     /**
@@ -118,6 +131,10 @@ export class ObjDatatableComponent implements OnInit, OnDestroy {
                 source: record.sourceName,
             });
         });
+    }
+
+    updateSearchHighlight(value: string) {
+        this.searchStr = value;
     }
 
     onActivate(event) {

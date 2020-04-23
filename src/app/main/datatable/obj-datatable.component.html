@@ -33,12 +33,18 @@
 
     <!-- CONTENT -->
     <div class="content p-24">
-        <!-- <p class="mb-32">
-            <b>ngx-datatable</b> is a Angular component for presenting large and complex data.
-            It has all the features you would expect from any other table but in a light package with no external
-            dependencies. The table was designed to be extremely flexible and light; it doesn't make any assumptions
-            about your data or how you: filter, sort or page it.
-        </p> -->
+        <!-- <p class="mb-32"> -->
+        Search for:
+        <input
+            #searchStr
+            (keyup.enter)="updateSearchHighlight(searchStr.value)"
+            (blur)="updateSearchHighlight(searchStr.value)"
+        />
+        <br /><br />
+        <b>ngx-datatable</b>
+        <div innerHTML="{{ str | highlight: searchStr.value }}"></div>
+
+        <!-- </p> -->
 
         <ngx-datatable
             class="material"
