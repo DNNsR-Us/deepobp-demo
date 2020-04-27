@@ -30,7 +30,7 @@ export const navigation: FuseNavigation[] = [
             },
             {
                 id       : 'datatable',
-                title    : 'Document Selection',
+                title    : 'Object Nominator',
                 // translate: 'NAV.DEMO.TITLE',
                 type     : 'item',
                 icon     : 'list', // or collections
