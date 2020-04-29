@@ -19,17 +19,25 @@ interface Coi {
 })
 export class AnalyticsDashboardComponent implements OnInit {
     widgets: any;
-    // widget1SelectedYear = '2016';
-    // widget5SelectedDay = 'today';
+    widgetData: any;
+    widgetMap = {
+        nflDict: 2,
+        nflNoDict: 3,
+        covidDict: 4,
+        covidNoDict: 5,
+    };
     cois: Coi[] = [
-        { value: "covid19", viewValue: "Covid-19" },
+        { value: "covid19", viewValue: "COVID" },
         // { value: "tech", viewValue: "Tech" },
         { value: "nfl", viewValue: "NFL" },
         // { value: "top_headlines", viewValue: "Headlines" },
     ];
 
+    useDictionary: boolean;
+
     selectedCoi: string;
     selectedNumTerms: number;
+    selectedTimeRange: string;
     numObjectsNominated: number;
     numObjectsRejected: number;
 
@@ -58,12 +66,15 @@ export class AnalyticsDashboardComponent implements OnInit {
     ngOnInit(): void {
         // Get the widgets from the service
         this.widgets = this._analyticsDashboardService.widgets;
-        console.log(this.widgets.widget2);
-        console.log(this.widgets.widget2.datasets[0].data);
-        let res = this.widgets.widget2.datasets[0].data;
-        console.log(typeof res);
-        // res.sort((a, b) => a > b);
-        // console.log(res);
+
+        // Clone the widgets data object except for datasets. It's fine to have more data than labels;
+        // don't want to slice the datasets data because then you can't get that data back.
+        this.widgetData = {
+            ...this.widgets.widget2,
+        };
+
+        this.widgetData.labels = this.widgets.widget2.labels.slice(0, 10);
+
         this._sharedService.sharedCoi.subscribe(
             (coi) => (this.selectedCoi = coi)
         );
@@ -71,15 +82,11 @@ export class AnalyticsDashboardComponent implements OnInit {
         this.numObjectsNominated = 4;
         this.numObjectsRejected = 46;
         this.selectedNumTerms = 10;
+        this.selectedTimeRange = "day";
+        this.useDictionary = true;
     }
 
     onCoiSelection(event) {
-        console.log("in onCoiSelection, event is", event);
-        console.log(this.selectedCoi.toLowerCase());
-        // Reset selections
-        // this.selected = [];
-        // this.selectedObjects = [];
-        // this.resultType = "covid19";
         this.selectedCoi = event.value;
         this._sharedService.nextCoi(this.selectedCoi);
         if (this.selectedCoi.toLowerCase() == "covid19") {
@@ -101,14 +108,38 @@ export class AnalyticsDashboardComponent implements OnInit {
         //     });
     }
 
+    onDictionarySelection(event) {
+        this.setWidgetData();
+    }
+
     onNumTermsSelection(event) {
-        console.log("in onNumTermsSelection, event is", event);
         this.selectedNumTerms = event.value;
+        this.setWidgetData();
+    }
+
+    onNumDaysSelection(event) {
+        this.selectedTimeRange = event.value;
+        console.log('time range is ' + this.selectedTimeRange);
     }
     // -----------------------------------------------------------------------------------------------------
     // @ Private methods
     // -----------------------------------------------------------------------------------------------------
 
+    private setWidgetData() {
+        let widgetNum: number = 3;
+        if (this.selectedCoi == "nfl" && this.useDictionary) {
+            widgetNum = this.widgetMap.nflDict;
+        } else if (this.selectedCoi == "nfl" && !this.useDictionary) {
+            widgetNum = this.widgetMap.nflNoDict;
+        }
+        console.log("widgetNum is " + widgetNum);
+        this.widgetData = {
+            ...this.widgets["widget" + widgetNum],
+        };
+        this.widgetData.labels = this.widgets[
+            "widget" + widgetNum
+        ].labels.slice(0, this.selectedNumTerms);
+    }
     /**
      * Register a custom plugin
      */

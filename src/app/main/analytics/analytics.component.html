@@ -1,11 +1,18 @@
 <div id="dashboard-analytics" class="page-layout blank">
     <!-- HEADER -->
     <div class="header accent p-24">
-        <h1>Object Based Production</h1>
-        <h2>Dashboard</h2>
-        <div class="right w-200">
-            <div fxLayout="row wrap" fxLayout.gt-md="column">
-                <mat-form-field>
+        <div
+            class="px-16 border-bottom"
+            fxLayout="row wrap"
+            fxLayoutAlign="space-between center"
+        >
+            <div fxFlex class="py-16 h3">
+                <h1>Object Based Production</h1>
+                <h2>Dashboard</h2>
+            </div>
+
+            <div fxFlex="0 1 auto" class="py-16 w-200" fxLayout="row">
+                <mat-form-field class="w-160">
                     <mat-label>Select a COI</mat-label>
                     <mat-select
                         #coi
@@ -82,16 +89,86 @@
 
             <!-- Frequent Terms -->
 
-            <div class="fuse-card w-600">
-                <div
-                    class="position-relative p-24"
-                    fxLayout="row"
-                    fxLayoutAlign="space-between center"
-                >
-                    <div fxLayout="column" fxLayoutAlign="start start">
-                        <span class="h2">Frequent Terms</span>
+            <fuse-widget
+                [@animate]="{ value: '*', params: { y: '100%' } }"
+                fxLayout="row"
+                fxFlex="100"
+                class="widget widget3 w-700"
+            >
+                <!-- Front -->
+                <div class="fuse-widget-front">
+                    <div
+                        class="px-16 border-bottom"
+                        fxLayout="row wrap"
+                        fxLayoutAlign="space-between center"
+                    >
+                        <div fxFlex class="py-16 h3">Frequent Terms</div>
+
+                        <div fxFlex="0 1 auto" class="py-16" fxLayout="row">
+                            <mat-form-field class="mx-20 w-100">
+                                <mat-select
+                                    class="simplified"
+                                    #numTerms
+                                    [(ngModel)]="selectedNumTerms"
+                                    (selectionChange)="
+                                        onNumTermsSelection($event)
+                                    "
+                                >
+                                    <mat-option [value]="5">5 Terms</mat-option>
+                                    <mat-option [value]="10"
+                                        >10 Terms</mat-option
+                                    >
+                                    <mat-option [value]="25"
+                                        >25 Terms</mat-option
+                                    >
+                                </mat-select>
+                            </mat-form-field>
+                            <mat-form-field class="mx-20 w-80">
+                                <mat-select
+                                    class="simplified"
+                                    #numTerms
+                                    [(ngModel)]="selectedTimeRange"
+                                    (selectionChange)="
+                                        onNumDaysSelection($event)
+                                    "
+                                >
+                                    <mat-option value="day">Day</mat-option>
+                                    <mat-option value="week">Week</mat-option>
+                                    <mat-option value="month">Month</mat-option>
+                                </mat-select>
+                            </mat-form-field>
+                            <mat-radio-group
+                                aria-labelledby="example-radio-group-label"
+                                class="example-radio-group"
+                                [(ngModel)]="useDictionary"
+                                (change)="onDictionarySelection($event)"
+                            >
+                                <mat-radio-button
+                                    class="example-radio-button"
+                                    [value]="true"
+                                >
+                                    Dictionary
+                                </mat-radio-button>
+                                <mat-radio-button
+                                    class="example-radio-button"
+                                    [value]="false"
+                                >
+                                    No Dictionary
+                                </mat-radio-button>
+                            </mat-radio-group>
+                            <!-- <button mat-button class="px-16"
+                                                *ngFor="let range of widgets.widget5.ranges | keys"
+                                                (click)="widget5.currentRange = range.key"
+                                                [ngClass]="{'accent' : widget5.currentRange == range.key}">
+                                            {{range.value}}
+                                        </button> -->
+                        </div>
                     </div>
-                    <div class="pr-16">
+
+                    <div
+                        fxLayout="row wrap"
+                        fxLayoutAlign="space-between center"
+                    >
                         <!-- <div class="h3 secondary-text">Frequent Terms</div> -->
                         <div class="pb-24 font-size-18 font-weight-300">
                             <div
@@ -99,46 +176,23 @@
                                 fxLayout="row"
                                 fxLayoutAlign="space-between center"
                             >
-                                <span class="h3">Number of Terms</span>
-                                <mat-form-field class="mx-20">
-                                    <mat-select
-                                        class="simplified"
-                                        #numTerms
-                                       [(ngModel)]="selectedNumTerms"
-                                        (selectionChange)="
-                                            onNumTermsSelection($event)
-                                        "
+                                <!-- <span class="h3">Number of Terms</span> -->
+                                <div class="h-300 w-600">
+                                    <canvas
+                                        baseChart
+                                        [datasets]="widgetData.datasets"
+                                        [labels]="widgetData.labels"
+                                        [colors]="widgetData.colors"
+                                        [options]="widgetData.options"
+                                        [chartType]="widgetData.chartType"
                                     >
-                                        <mat-option [value]="5">5</mat-option>
-                                        <mat-option [value]="10">10</mat-option>
-                                        <mat-option [value]="25">25</mat-option>
-                                    </mat-select>
-                                </mat-form-field>
-
-                                <button
-                                    mat-button
-                                    mat-raised-button
-                                    color="accent"
-                                >
-                                    Dictionary
-                                </button>
+                                    </canvas>
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
-
-                <div class="h-300 w-900">
-                    <canvas
-                        baseChart
-                        [datasets]="widgets.widget2.datasets"
-                        [labels]="widgets.widget2.labels"
-                        [colors]="widgets.widget2.colors"
-                        [options]="widgets.widget2.options"
-                        [chartType]="widgets.widget2.chartType"
-                    >
-                    </canvas>
-                </div>
-            </div>
+            </fuse-widget>
         </div>
     </div>
 </div>

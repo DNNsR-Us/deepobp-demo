@@ -16,6 +16,7 @@ import { FuseWidgetModule } from '@fuse/components/widget/widget.module';
 import { AnalyticsDashboardComponent } from 'app/main/analytics/analytics.component';
 import { AnalyticsDashboardService } from 'app/main/analytics/analytics.service';
 import { MatCardModule } from '@angular/material/card';
+import { MatRadioModule } from '@angular/material/radio';
 
 const routes: Routes = [
     {
@@ -39,6 +40,7 @@ const routes: Routes = [
         MatIconModule,
         MatMenuModule,
         MatSelectModule,
+        MatRadioModule,
         MatTabsModule,
         MatCardModule,
 
