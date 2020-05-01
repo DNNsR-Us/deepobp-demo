@@ -27,7 +27,7 @@ export class AnalyticsDashboardComponent implements OnInit {
         covidNoDict: 5,
     };
     cois: Coi[] = [
-        { value: "covid19", viewValue: "COVID" },
+        { value: "covid", viewValue: "COVID" },
         // { value: "tech", viewValue: "Tech" },
         { value: "nfl", viewValue: "NFL" },
         // { value: "top_headlines", viewValue: "Headlines" },
@@ -64,32 +64,28 @@ export class AnalyticsDashboardComponent implements OnInit {
      * On init
      */
     ngOnInit(): void {
-        // Get the widgets from the service
-        this.widgets = this._analyticsDashboardService.widgets;
+        // Hard code some data initially
+        this.numObjectsNominated = 4;
+        this.numObjectsRejected = 46;
 
-        // Clone the widgets data object except for datasets. It's fine to have more data than labels;
-        // don't want to slice the datasets data because then you can't get that data back.
-        this.widgetData = {
-            ...this.widgets.widget2,
-        };
-
-        this.widgetData.labels = this.widgets.widget2.labels.slice(0, 10);
+        // Initialize defaults
+        this.selectedNumTerms = 10;
+        this.selectedTimeRange = "day";
+        this.useDictionary = true;
 
         this._sharedService.sharedCoi.subscribe(
             (coi) => (this.selectedCoi = coi)
         );
+        // Get the widgets from the service
+        this.widgets = this._analyticsDashboardService.widgets;
 
-        this.numObjectsNominated = 4;
-        this.numObjectsRejected = 46;
-        this.selectedNumTerms = 10;
-        this.selectedTimeRange = "day";
-        this.useDictionary = true;
+        this.setWidgetData();
     }
 
-    onCoiSelection(event) {
+    async onCoiSelection(event) {
         this.selectedCoi = event.value;
         this._sharedService.nextCoi(this.selectedCoi);
-        if (this.selectedCoi.toLowerCase() == "covid19") {
+        if (this.selectedCoi.toLowerCase() == "covid") {
             this.numObjectsNominated = 10;
             this.numObjectsRejected = 40;
         } else if (this.selectedCoi.toLowerCase() == "nfl") {
@@ -97,18 +93,21 @@ export class AnalyticsDashboardComponent implements OnInit {
             this.numObjectsRejected = 46;
         }
 
-        // this._httpClient
-        //     .get(
-        //         `${this.apiBaseUrl}/news?url=${this.selectedCoi}`
-        //     )
-        //     .pipe(takeUntil(this._unsubscribeAll))
-        //     .subscribe((articles: any) => {
-        //         this.rows = articles;
-        //         this.loadingIndicator = false;
-        //     });
+        this.widgets =  await this._analyticsDashboardService.getWidgets(
+            this.selectedCoi,
+            this.useDictionary
+        );
+
+        this.setWidgetData();
     }
 
-    onDictionarySelection(event) {
+    async onDictionarySelection(event) {
+        this.useDictionary = event.value;
+        this.widgets = await this._analyticsDashboardService.getWidgets(
+            this.selectedCoi,
+            this.useDictionary
+        );
+
         this.setWidgetData();
     }
 
@@ -119,25 +118,19 @@ export class AnalyticsDashboardComponent implements OnInit {
 
     onNumDaysSelection(event) {
         this.selectedTimeRange = event.value;
-        console.log('time range is ' + this.selectedTimeRange);
+        console.log("time range is " + this.selectedTimeRange);
     }
     // -----------------------------------------------------------------------------------------------------
     // @ Private methods
     // -----------------------------------------------------------------------------------------------------
 
     private setWidgetData() {
-        let widgetNum: number = 3;
-        if (this.selectedCoi == "nfl" && this.useDictionary) {
-            widgetNum = this.widgetMap.nflDict;
-        } else if (this.selectedCoi == "nfl" && !this.useDictionary) {
-            widgetNum = this.widgetMap.nflNoDict;
-        }
-        console.log("widgetNum is " + widgetNum);
         this.widgetData = {
-            ...this.widgets["widget" + widgetNum],
+            ...this.widgets["widget2"],
+            labels: { ...this.widgets["widget2"].labels },
         };
         this.widgetData.labels = this.widgets[
-            "widget" + widgetNum
+            "widget2"
         ].labels.slice(0, this.selectedNumTerms);
     }
     /**
