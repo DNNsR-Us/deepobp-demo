@@ -29,10 +29,8 @@ const routes: Routes = [
 ];
 
 @NgModule({
-    declarations: [
-        AnalyticsDashboardComponent
-    ],
-    imports     : [
+    declarations: [AnalyticsDashboardComponent],
+    imports: [
         RouterModule.forChild(routes),
 
         MatButtonModule,
@@ -45,19 +43,16 @@ const routes: Routes = [
         MatCardModule,
 
         AgmCoreModule.forRoot({
-            apiKey: 'AIzaSyD81ecsCj4yYpcXSLFcYU97PvRsE_X8Bx8'
+            apiKey: "AIzaSyD81ecsCj4yYpcXSLFcYU97PvRsE_X8Bx8",
         }),
         ChartsModule,
         NgxChartsModule,
 
         FuseSharedModule,
-        FuseWidgetModule
+        FuseWidgetModule,
     ],
-    providers   : [
-        AnalyticsDashboardService
-    ]
+    providers: [AnalyticsDashboardService],
 })
-export class AnalyticsDashboardModule
-{
+export class AnalyticsDashboardModule {
 }
 
