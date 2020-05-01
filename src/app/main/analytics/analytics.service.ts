@@ -3,13 +3,10 @@ import { HttpClient } from "@angular/common/http";
 
 import {
     ActivatedRouteSnapshot,
-    Resolve,
     RouterStateSnapshot,
 } from "@angular/router";
 import { Observable } from "rxjs";
 import { environment } from "environments/environment";
-import { takeUntil, mergeMap } from "rxjs/operators";
-import { Widget } from "app/models/widget";
 
 @Injectable()
 export class AnalyticsDashboardService {
