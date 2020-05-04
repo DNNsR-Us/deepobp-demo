@@ -103,7 +103,7 @@ export class AnalyticsDashboardService {
     }
 
     /**
-     * Get widgets
+     * Get widgets - Async function
      *
      * @returns {Promise<any>}
      */

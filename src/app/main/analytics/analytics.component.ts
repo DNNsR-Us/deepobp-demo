@@ -83,32 +83,40 @@ export class AnalyticsDashboardComponent implements OnInit {
     }
 
     async onCoiSelection(event) {
-        this.selectedCoi = event.value;
-        this._sharedService.nextCoi(this.selectedCoi);
-        if (this.selectedCoi.toLowerCase() == "covid") {
-            this.numObjectsNominated = 10;
-            this.numObjectsRejected = 40;
-        } else if (this.selectedCoi.toLowerCase() == "nfl") {
-            this.numObjectsNominated = 4;
-            this.numObjectsRejected = 46;
+        try {
+            this.selectedCoi = event.value;
+            this._sharedService.nextCoi(this.selectedCoi);
+            if (this.selectedCoi.toLowerCase() == "covid") {
+                this.numObjectsNominated = 10;
+                this.numObjectsRejected = 40;
+            } else if (this.selectedCoi.toLowerCase() == "nfl") {
+                this.numObjectsNominated = 4;
+                this.numObjectsRejected = 46;
+            }
+
+            this.widgets = await this._analyticsDashboardService.getWidgets(
+                this.selectedCoi,
+                this.useDictionary
+            );
+
+            this.setWidgetData();
+        } catch (error) {
+            console.log(error);
         }
-
-        this.widgets =  await this._analyticsDashboardService.getWidgets(
-            this.selectedCoi,
-            this.useDictionary
-        );
-
-        this.setWidgetData();
     }
 
     async onDictionarySelection(event) {
-        this.useDictionary = event.value;
-        this.widgets = await this._analyticsDashboardService.getWidgets(
-            this.selectedCoi,
-            this.useDictionary
-        );
+        try {
+            this.useDictionary = event.value;
+            this.widgets = await this._analyticsDashboardService.getWidgets(
+                this.selectedCoi,
+                this.useDictionary
+            );
 
-        this.setWidgetData();
+            this.setWidgetData();
+        } catch (error) {
+            console.log(error);
+        }
     }
 
     onNumTermsSelection(event) {
@@ -129,9 +137,10 @@ export class AnalyticsDashboardComponent implements OnInit {
             ...this.widgets["widget2"],
             labels: { ...this.widgets["widget2"].labels },
         };
-        this.widgetData.labels = this.widgets[
-            "widget2"
-        ].labels.slice(0, this.selectedNumTerms);
+        this.widgetData.labels = this.widgets["widget2"].labels.slice(
+            0,
+            this.selectedNumTerms
+        );
     }
     /**
      * Register a custom plugin
