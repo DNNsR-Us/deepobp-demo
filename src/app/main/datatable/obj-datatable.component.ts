@@ -116,7 +116,6 @@ export class ObjDatatableComponent implements OnInit, OnDestroy {
 
     // Custom functions
     onSelect({ selected }) {
-        console.log(selected);
         this.selected.splice(0, this.selected.length);
         this.selected.push(...selected);
 
@@ -155,22 +154,17 @@ export class ObjDatatableComponent implements OnInit, OnDestroy {
      * @param candidateObj
      */
     discardObj(candidateObj: any): void {
-        console.log("discardObj");
-        console.log(candidateObj);
-        console.log(this.selected);
-
         this.selectedObjects = this.selectedObjects.filter(
             (obj) => obj !== candidateObj
         );
 
-        let selected = this.selected.filter(
-            (obj) => {
-                obj.name !== candidateObj.name && obj.entity_type != candidateObj.type && obj.source != candidateObj.source
-            }
-        );
+        let selected = this.selected.filter((obj) => {
+            obj.name !== candidateObj.name &&
+                obj.entity_type != candidateObj.type &&
+                obj.source != candidateObj.source;
+        });
         this.selected.splice(0, this.selected.length);
         this.selected.push(...selected);
-
     }
 
     // -----------------------------------------------------------------------------------------------------

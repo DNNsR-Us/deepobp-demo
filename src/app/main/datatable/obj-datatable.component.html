@@ -33,8 +33,8 @@
 
     <!-- CONTENT -->
     <div class="content p-24">
-        <!-- <p class="mb-32"> -->
-        Search for:
+
+        <!-- Search for:
         <input
             #searchStr
             (keyup.enter)="updateSearchHighlight(searchStr.value)"
@@ -42,9 +42,7 @@
         />
         <br /><br />
         <b>ngx-datatable</b>
-        <div innerHTML="{{ str | highlight: searchStr.value }}"></div>
-
-        <!-- </p> -->
+        <div innerHTML="{{ str | highlight: searchStr.value }}"></div> -->
 
         <ngx-datatable
             class="material"

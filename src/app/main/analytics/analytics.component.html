@@ -93,7 +93,8 @@
                 [@animate]="{ value: '*', params: { y: '100%' } }"
                 fxLayout="row"
                 fxFlex="100"
-                class="widget widget3 w-700"
+                fxLayoutAlign="space-around center"
+                class="widget widget3"
             >
                 <!-- Front -->
                 <div class="fuse-widget-front">
@@ -177,7 +178,7 @@
                                 fxLayoutAlign="space-between center"
                             >
                                 <!-- <span class="h3">Number of Terms</span> -->
-                                <div class="h-300 w-600">
+                                <div class="h-300 w-700">
                                     <canvas
                                         baseChart
                                         [datasets]="widgetData.datasets"
