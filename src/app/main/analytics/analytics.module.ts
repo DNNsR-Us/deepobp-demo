@@ -16,6 +16,7 @@ import { FuseWidgetModule } from '@fuse/components/widget/widget.module';
 import { AnalyticsDashboardComponent } from 'app/main/analytics/analytics.component';
 import { AnalyticsDashboardService } from 'app/main/analytics/analytics.service';
 import { MatCardModule } from '@angular/material/card';
+import { MatRadioModule } from '@angular/material/radio';
 
 const routes: Routes = [
     {
@@ -28,10 +29,8 @@ const routes: Routes = [
 ];
 
 @NgModule({
-    declarations: [
-        AnalyticsDashboardComponent
-    ],
-    imports     : [
+    declarations: [AnalyticsDashboardComponent],
+    imports: [
         RouterModule.forChild(routes),
 
         MatButtonModule,
@@ -39,23 +38,21 @@ const routes: Routes = [
         MatIconModule,
         MatMenuModule,
         MatSelectModule,
+        MatRadioModule,
         MatTabsModule,
         MatCardModule,
 
         AgmCoreModule.forRoot({
-            apiKey: 'AIzaSyD81ecsCj4yYpcXSLFcYU97PvRsE_X8Bx8'
+            apiKey: "AIzaSyD81ecsCj4yYpcXSLFcYU97PvRsE_X8Bx8",
         }),
         ChartsModule,
         NgxChartsModule,
 
         FuseSharedModule,
-        FuseWidgetModule
+        FuseWidgetModule,
     ],
-    providers   : [
-        AnalyticsDashboardService
-    ]
+    providers: [AnalyticsDashboardService],
 })
-export class AnalyticsDashboardModule
-{
+export class AnalyticsDashboardModule {
 }
 

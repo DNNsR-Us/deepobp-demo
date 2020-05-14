@@ -1,15 +1,18 @@
 <div id="dashboard-analytics" class="page-layout blank">
-    <div class="content">
-        <!-- Select a COI dropdown -->
-    <hr />
-    <mat-card>
-        <div class="fuse-widget-front">
-            <div
-                class="pl-16 pr-8 py-16 h-52"
-                fxLayout="row"
-                fxLayoutAlign="space-between center"
-            >
-                <mat-form-field>
+    <!-- HEADER -->
+    <div class="header accent p-24">
+        <div
+            class="px-16 border-bottom"
+            fxLayout="row wrap"
+            fxLayoutAlign="space-between center"
+        >
+            <div fxFlex class="py-16 h3">
+                <h1>Object Based Production</h1>
+                <h2>Dashboard</h2>
+            </div>
+
+            <div fxFlex="0 1 auto" class="py-16 w-200" fxLayout="row">
+                <mat-form-field class="w-160">
                     <mat-label>Select a COI</mat-label>
                     <mat-select
                         #coi
@@ -26,97 +29,170 @@
                 </mat-form-field>
             </div>
         </div>
-    </mat-card>
-    <br><br><br><br>
-        <div class="left mr-lg-32 mt-100">
-            <div class="pb-24 font-size-18 font-weight-300">
-                Word Frequency
-            </div>
-
+    </div>
+    <!-- / HEADER -->
+    <div class="content">
+        <div class="left mr-lg-32">
             <div
-                fxLayout="column"
-                fxLayoutAlign="start"
+                class="mb-32"
+                fxLayout="row"
+                fxLayoutAlign="space-evenly center"
                 fxLayout.gt-sm="row"
-                fxLayoutAlign.gt-sm="start start"
+                fxLayoutAlign.gt-sm="space-evenly center"
             >
-                <!-- Widget 2 -->
+                <!-- Widget 1 - Objects Nominated -->
                 <div class="widget" fxFlex="100" fxFlex.gt-sm="33">
-                    <div
-                        class="fuse-card auto-width mb-32"
-                        [ngClass.gt-sm]="'mb-0 mr-32'"
-                    >
+                    <div class="fuse-card auto-width h-200">
                         <div
-                            class="p-16 pb-0"
-                            fxLayout="row wrap"
-                            fxLayoutAlign="start end"
+                            class="h-120"
+                            fxLayout="column"
+                            fxLayoutAlign="space-around center"
                         >
-                            <div class="pr-16">
-                                <div class="h3 secondary-text">Word</div>
-                                <div
-                                    class="font-size-54 font-weight-300 line-height-1 mt-8"
-                                >
-                                    {{ widgets.widget2.conversion.value }}
-                                </div>
-                            </div>
-
-                            <!-- <div
-                                class="py-4 font-size-16"
+                            <div
+                                class="font-size-54 font-weight-300 line-height-1 mt-8 red-fg"
                                 fxLayout="row"
-                                fxLayoutAlign="start center"
                             >
-                                <div
-                                    fxFlex="row"
-                                    fxLayoutAlign="start center"
-                                    class="green-fg"
-                                    *ngIf="
-                                        widgets.widget2.conversion.ofTarget > 0
-                                    "
-                                >
-                                    <mat-icon class="green-fg mr-4"
-                                        >trending_up</mat-icon
-                                    >
-                                    <span
-                                        >{{
-                                            widgets.widget2.conversion.ofTarget
-                                        }}%</span
-                                    >
-                                </div>
-                                <div
-                                    fxFlex="row"
-                                    fxLayoutAlign="start center"
-                                    class="red-fg"
-                                    *ngIf="
-                                        widgets.widget2.conversion.ofTarget < 0
-                                    "
-                                >
-                                    <mat-icon class="red-fg mr-4"
-                                        >trending_down</mat-icon
-                                    >
-                                    <span
-                                        >{{
-                                            widgets.widget2.conversion.ofTarget
-                                        }}%</span
-                                    >
-                                </div>
-                                <div class="ml-4 text-nowrap">of target</div>
-                            </div> -->
+                                {{ numObjectsNominated }}
+                            </div>
+                            <div class="h1 font-weight-300" fxLayout="row">
+                                Objects Nominated
+                            </div>
                         </div>
+                        <div class="card-divider mb-0"></div>
 
-                        <div class="h-300 w-500-p">
-                            <canvas
-                                baseChart
-                                [datasets]="widgets.widget2.datasets"
-                                [labels]="widgets.widget2.labels"
-                                [colors]="widgets.widget2.colors"
-                                [options]="widgets.widget2.options"
-                                [chartType]="widgets.widget2.chartType"
+                        <div
+                            class="px-16 py-12"
+                            fxLayout="row"
+                            fxLayoutAlign="space-between end"
+                        >
+                            {{ numObjectsRejected }} Objects Rejected
+                        </div>
+                    </div>
+                </div>
+                <!-- / Widget 1 -->
+                <!-- Widget 2 - Placeholder -->
+                <div class="" fxFlex="50" fxFlex.gt-sm="33">
+                    <div class="fuse-card auto-width h-200">
+                        <div fxLayout="column" fxLayoutAlign="center center">
+                            <div
+                                class="font-size-14 font-weight-300 red-fg mt-80 mx-20"
+                                fxLayout="row"
                             >
-                            </canvas>
+                                Future sprint graphic displaying number of
+                                documents per source
+                            </div>
                         </div>
                     </div>
                 </div>
                 <!-- / Widget 2 -->
             </div>
+
+            <!-- Frequent Terms -->
+
+            <fuse-widget
+                [@animate]="{ value: '*', params: { y: '100%' } }"
+                fxLayout="row"
+                fxFlex="100"
+                class="widget widget3 w-700"
+            >
+                <!-- Front -->
+                <div class="fuse-widget-front">
+                    <div
+                        class="px-16 border-bottom"
+                        fxLayout="row wrap"
+                        fxLayoutAlign="space-between center"
+                    >
+                        <div fxFlex class="py-16 h3">Frequent Terms</div>
+
+                        <div fxFlex="0 1 auto" class="py-16" fxLayout="row">
+                            <mat-form-field class="mx-20 w-100">
+                                <mat-select
+                                    class="simplified"
+                                    #numTerms
+                                    [(ngModel)]="selectedNumTerms"
+                                    (selectionChange)="
+                                        onNumTermsSelection($event)
+                                    "
+                                >
+                                    <mat-option [value]="5">5 Terms</mat-option>
+                                    <mat-option [value]="10"
+                                        >10 Terms</mat-option
+                                    >
+                                    <mat-option [value]="25"
+                                        >25 Terms</mat-option
+                                    >
+                                </mat-select>
+                            </mat-form-field>
+                            <mat-form-field class="mx-20 w-80">
+                                <mat-select
+                                    class="simplified"
+                                    #numTerms
+                                    [(ngModel)]="selectedTimeRange"
+                                    (selectionChange)="
+                                        onNumDaysSelection($event)
+                                    "
+                                >
+                                    <mat-option value="day">Day</mat-option>
+                                    <mat-option value="week">Week</mat-option>
+                                    <mat-option value="month">Month</mat-option>
+                                </mat-select>
+                            </mat-form-field>
+                            <mat-radio-group
+                                aria-labelledby="example-radio-group-label"
+                                class="example-radio-group"
+                                [(ngModel)]="useDictionary"
+                                (change)="onDictionarySelection($event)"
+                            >
+                                <mat-radio-button
+                                    class="example-radio-button"
+                                    [value]="true"
+                                >
+                                    Dictionary
+                                </mat-radio-button>
+                                <mat-radio-button
+                                    class="example-radio-button"
+                                    [value]="false"
+                                >
+                                    No Dictionary
+                                </mat-radio-button>
+                            </mat-radio-group>
+                            <!-- <button mat-button class="px-16"
+                                                *ngFor="let range of widgets.widget5.ranges | keys"
+                                                (click)="widget5.currentRange = range.key"
+                                                [ngClass]="{'accent' : widget5.currentRange == range.key}">
+                                            {{range.value}}
+                                        </button> -->
+                        </div>
+                    </div>
+
+                    <div
+                        fxLayout="row wrap"
+                        fxLayoutAlign="space-between center"
+                    >
+                        <!-- <div class="h3 secondary-text">Frequent Terms</div> -->
+                        <div class="pb-24 font-size-18 font-weight-300">
+                            <div
+                                class="px-16"
+                                fxLayout="row"
+                                fxLayoutAlign="space-between center"
+                            >
+                                <!-- <span class="h3">Number of Terms</span> -->
+                                <div class="h-300 w-600">
+                                    <canvas
+                                        baseChart
+                                        [datasets]="widgetData.datasets"
+                                        [labels]="widgetData.labels"
+                                        [colors]="widgetData.colors"
+                                        [options]="widgetData.options"
+                                        [chartType]="widgetData.chartType"
+                                    >
+                                    </canvas>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </fuse-widget>
         </div>
     </div>
 </div>
