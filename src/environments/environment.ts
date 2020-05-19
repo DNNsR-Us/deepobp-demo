@@ -4,8 +4,9 @@
 
 export const environment = {
     production: false,
-    hmr       : false,
-    apiBaseUrl : 'http://127.0.0.1:5001'
+    hmr: false,
+    apiBaseUrl: "http://127.0.0.1:5001",
+    intelbookBaseUrl: "https://kubemaster-trunk-1.udev.six3/services",
 };
 
 /*

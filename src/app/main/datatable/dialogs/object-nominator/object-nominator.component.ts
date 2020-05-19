@@ -4,16 +4,23 @@ import {
     Inject,
     OnInit,
     OnDestroy,
+    Injectable,
 } from "@angular/core";
 import { MatDialogRef, MAT_DIALOG_DATA } from "@angular/material/dialog";
 import { FormBuilder, FormGroup, Validators } from "@angular/forms";
 import { Subject } from "rxjs";
+import { ObjectNominatorService } from "./object-nominator.service";
+import { IbObject } from "../../../../models/ibobject";
 
+@Injectable({
+    providedIn: "root",
+})
 @Component({
     selector: "object-nominator",
     templateUrl: "./object-nominator.component.html",
     styleUrls: ["./object-nominator.component.scss"],
     encapsulation: ViewEncapsulation.None,
+    // providers: [IbObject],
 })
 export class ObjectNominatorComponent implements OnInit, OnDestroy {
     // dialogRef: any;
@@ -35,7 +42,8 @@ export class ObjectNominatorComponent implements OnInit, OnDestroy {
     constructor(
         public matDialogRef: MatDialogRef<ObjectNominatorComponent>,
         @Inject(MAT_DIALOG_DATA) public _data: any,
-        private _formBuilder: FormBuilder
+        private _formBuilder: FormBuilder,
+        private _objectNominatorService: ObjectNominatorService
     ) {}
 
     /**
@@ -44,10 +52,10 @@ export class ObjectNominatorComponent implements OnInit, OnDestroy {
     ngOnInit(): void {
         // Reactive Form
         this.form = this._formBuilder.group({
-
-            firstName: ["", Validators.required],
+            name: [""],
+            firstName: ["", ],
             middleName: [""],
-            lastName: ["", Validators.required],
+            lastName: ["", ],
             objectType: ["", Validators.required],
             dateOfBirth: [""],
             source: ["", Validators.required],
@@ -60,6 +68,7 @@ export class ObjectNominatorComponent implements OnInit, OnDestroy {
     setValue() {
         const name = this._data.article.name.split(" ");
         this.form.setValue({
+            name: this._data.article.name,
             firstName: name[0],
             middleName: this._data.extra.middle,
             lastName: name[1],
@@ -77,5 +86,22 @@ export class ObjectNominatorComponent implements OnInit, OnDestroy {
         // Unsubscribe from all subscriptions
         // this._unsubscribeAll.next();
         // this._unsubscribeAll.complete();
+    }
+
+    async createObject() {
+        console.log(this.form);
+        let ibObject = new IbObject();
+        ibObject.name = this.form.value.name;
+        // ibObject.typeId = this.form.value.objectType; get typeId values
+        // ibObject.coi['name'] = "Deep OBP " + this.coi.toUpperCase();
+
+        ibObject.coi['name'] = "Deep OBP NFL";
+        console.log(ibObject);
+
+        try {
+            await this._objectNominatorService.postObject(ibObject);
+        } catch (error) {
+            console.log(error);
+        }
     }
 }

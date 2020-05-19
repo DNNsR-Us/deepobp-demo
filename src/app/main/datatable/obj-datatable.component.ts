@@ -185,7 +185,7 @@ export class ObjDatatableComponent implements OnInit, OnDestroy {
                     middle: "unknown",
                     dob: new Date("1975-06-02"),
                     createdBy: "ReadyUser1",
-                    classification: "unclassified",
+                    classification: "U",
                 },
             },
         });
