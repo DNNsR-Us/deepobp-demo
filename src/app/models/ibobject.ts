@@ -5,7 +5,7 @@ export class IbObject {
     };
     name: string;
     classification: string = "U";
-    typeId: string = "196_38669";
+    typeId: string = "196_38669"; // default - 'Organization' object type
     countries: [{}] = [
         {
             country: {

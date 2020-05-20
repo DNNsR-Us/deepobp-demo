@@ -11,6 +11,7 @@ import { FormBuilder, FormGroup, Validators } from "@angular/forms";
 import { Subject } from "rxjs";
 import { ObjectNominatorService } from "./object-nominator.service";
 import { IbObject } from "../../../../models/ibobject";
+import { MatSnackBar } from "@angular/material/snack-bar";
 
 @Injectable({
     providedIn: "root",
@@ -28,6 +29,12 @@ export class ObjectNominatorComponent implements OnInit, OnDestroy {
     form: FormGroup;
 
     todayDate: Date = new Date();
+    typeIdMap: {} = {
+        Event: "199_38615",
+        Organization: "196_38669",
+        Person: "195_38675",
+        Venue: "194_38683",
+    };
 
     // Private
     private _unsubscribeAll: Subject<any>;
@@ -43,7 +50,8 @@ export class ObjectNominatorComponent implements OnInit, OnDestroy {
         public matDialogRef: MatDialogRef<ObjectNominatorComponent>,
         @Inject(MAT_DIALOG_DATA) public _data: any,
         private _formBuilder: FormBuilder,
-        private _objectNominatorService: ObjectNominatorService
+        private _objectNominatorService: ObjectNominatorService,
+        private _snackBar: MatSnackBar
     ) {}
 
     /**
@@ -53,9 +61,9 @@ export class ObjectNominatorComponent implements OnInit, OnDestroy {
         // Reactive Form
         this.form = this._formBuilder.group({
             name: [""],
-            firstName: ["", ],
+            firstName: [""],
             middleName: [""],
-            lastName: ["", ],
+            lastName: [""],
             objectType: ["", Validators.required],
             dateOfBirth: [""],
             source: ["", Validators.required],
@@ -89,19 +97,33 @@ export class ObjectNominatorComponent implements OnInit, OnDestroy {
     }
 
     async createObject() {
-        console.log(this.form);
         let ibObject = new IbObject();
         ibObject.name = this.form.value.name;
-        // ibObject.typeId = this.form.value.objectType; get typeId values
+
+        let objectType = `${this.form.value.objectType}`;
+
+        ibObject.typeId = this.typeIdMap[objectType];
+
         // ibObject.coi['name'] = "Deep OBP " + this.coi.toUpperCase();
 
-        ibObject.coi['name'] = "Deep OBP NFL";
-        console.log(ibObject);
+        ibObject.coi["name"] = "Deep OBP NFL";
 
+        let res = {};
+        let message = "";
         try {
-            await this._objectNominatorService.postObject(ibObject);
+            res = await this._objectNominatorService.postObject(ibObject);
+            message = "Succes - Object created in Intelbook";
         } catch (error) {
             console.log(error);
+            message = error.message;
         }
+        this._snackBar.open(message, null, {
+            duration: 3000,
+            horizontalPosition: "center",
+            verticalPosition: "top",
+        });
+        setTimeout(() => {
+            this.matDialogRef.close();
+        }, 4000);
     }
 }
