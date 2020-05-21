@@ -65,8 +65,8 @@ export class AnalyticsDashboardComponent implements OnInit {
      */
     ngOnInit(): void {
         // Hard code some data initially
-        this.numObjectsNominated = 4;
-        this.numObjectsRejected = 46;
+        this.numObjectsNominated = 30;
+        this.numObjectsRejected = 20;
 
         // Initialize defaults
         this.selectedNumTerms = 10;
@@ -87,11 +87,11 @@ export class AnalyticsDashboardComponent implements OnInit {
             this.selectedCoi = event.value;
             this._sharedService.nextCoi(this.selectedCoi);
             if (this.selectedCoi.toLowerCase() == "covid") {
-                this.numObjectsNominated = 10;
-                this.numObjectsRejected = 40;
+                this.numObjectsNominated = 15;
+                this.numObjectsRejected = 35;
             } else if (this.selectedCoi.toLowerCase() == "nfl") {
-                this.numObjectsNominated = 4;
-                this.numObjectsRejected = 46;
+                this.numObjectsNominated = 30;
+                this.numObjectsRejected = 20;
             }
 
             this.widgets = await this._analyticsDashboardService.getWidgets(

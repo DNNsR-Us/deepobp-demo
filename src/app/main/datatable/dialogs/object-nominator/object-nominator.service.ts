@@ -4,7 +4,6 @@ import { HttpClient, HttpHeaders } from "@angular/common/http";
 import { ActivatedRouteSnapshot, RouterStateSnapshot } from "@angular/router";
 import { Observable } from "rxjs";
 import { environment } from "environments/environment";
-import { SharedService } from "../../../shared.service";
 import { IbObject } from "../../../../models/ibobject";
 
 @Injectable({
@@ -20,15 +19,8 @@ export class ObjectNominatorService {
      */
     constructor(
         private _httpClient: HttpClient,
-        private _sharedService: SharedService,
-        @Inject("coi") @Optional() public coi?: string,
         @Inject("body") @Optional() public body?: IbObject
     ) {
-        if (coi) {
-            this.coi = coi;
-        } else {
-            this._sharedService.sharedCoi.subscribe((coi) => (this.coi = coi));
-        }
         if (body) {
             this.body = body;
         }
