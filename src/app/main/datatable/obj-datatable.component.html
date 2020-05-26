@@ -33,7 +33,6 @@
 
     <!-- CONTENT -->
     <div class="content p-24">
-
         <!-- Search for:
         <input
             #searchStr
@@ -55,12 +54,12 @@
             [scrollbarH]="true"
             [reorderable]="reorderable"
             [selectionType]="'checkbox'"
-            [limit]="10"
+            [limit]="5"
             (activate)="onActivate($event)"
             (select)="onSelect($event)"
         >
             <ngx-datatable-column
-                [width]="48"
+                [width]="40"
                 [canAutoResize]="false"
                 [sortable]="false"
             >
@@ -92,17 +91,37 @@
             <ngx-datatable-column
                 name="Entity Type"
                 prop="entity_type"
+                width="30"
             ></ngx-datatable-column>
 
             <ngx-datatable-column
                 name="Name"
                 prop="name"
+                width="30"
             ></ngx-datatable-column>
 
             <ngx-datatable-column
                 name="Source"
                 prop="source"
+                width="30"
             ></ngx-datatable-column>
+
+            <ngx-datatable-column name="URL" prop="url" width="auto">
+                <ng-template
+                    ngx-datatable-cell-template
+                    let-value="value"
+                    let-row="row"
+                >
+                    <ul>
+                        <li *ngFor="let link of value"><a href="{{ link }}"> {{ link | htmlTitle }} </a></li>
+                    </ul>
+                    <!-- </ng-template>
+                <ng-template let-row="row" let-rowIndex="rowIndex">
+                    <ul>
+                        <li>{{ row[rowIndex] }}</li>
+                    </ul> -->
+                </ng-template>
+            </ngx-datatable-column>
         </ngx-datatable>
     </div>
 
