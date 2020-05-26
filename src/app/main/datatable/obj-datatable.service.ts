@@ -13,6 +13,4 @@ export class ObjDatatableService {
         this.coi = coi || "nfl";
         this.useFad = useFad || true;
     }
-
-    
 }

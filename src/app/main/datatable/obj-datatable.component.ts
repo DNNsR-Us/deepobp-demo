@@ -119,15 +119,11 @@ export class ObjDatatableComponent implements OnInit, OnDestroy {
         this.selected.splice(0, this.selected.length);
         this.selected.push(...selected);
 
-        let objectTypes = ["Organization", "Person", "Event", "Place"];
-
         this.selectedObjects = [];
         this.selected.forEach((record) => {
             this.selectedObjects.push({
                 name: record.name,
                 type: record.entity_type,
-                // type:
-                //     objectTypes[Math.floor(Math.random() * objectTypes.length)],
                 source: record.source,
             });
         });
@@ -185,7 +181,7 @@ export class ObjDatatableComponent implements OnInit, OnDestroy {
                     middle: "unknown",
                     dob: new Date("1975-06-02"),
                     createdBy: "ReadyUser1",
-                    classification: "unclassified",
+                    classification: "U",
                 },
             },
         });
