@@ -16,7 +16,7 @@
             <div fxLayout="row" fxLayoutAlign="start center">
                 <mat-icon class="secondary-text s-18">home</mat-icon>
                 <mat-icon class="secondary-text s-16">chevron_right</mat-icon>
-                <span class="secondary-text">Datatable</span>
+                <span class="secondary-text">Object Nominator</span>
             </div>
             <div class="h2 mt-16">Deep Object Based Production (OBP)</div>
             <div class="h3 mt-10">{{ selectedCoi | uppercase }}</div>
@@ -33,8 +33,8 @@
 
     <!-- CONTENT -->
     <div class="content p-24">
-        <!-- <p class="mb-32"> -->
-        Search for:
+
+        <!-- Search for:
         <input
             #searchStr
             (keyup.enter)="updateSearchHighlight(searchStr.value)"
@@ -42,9 +42,7 @@
         />
         <br /><br />
         <b>ngx-datatable</b>
-        <div innerHTML="{{ str | highlight: searchStr.value }}"></div>
-
-        <!-- </p> -->
+        <div innerHTML="{{ str | highlight: searchStr.value }}"></div> -->
 
         <ngx-datatable
             class="material"
@@ -92,24 +90,24 @@
             </ngx-datatable-column>
 
             <ngx-datatable-column
-                name="Title"
-                prop="title"
-            ></ngx-datatable-column>
-
-            <ngx-datatable-column
-                name="Published At"
-                prop="publishedAt"
+                name="Entity Type"
+                prop="entity_type"
             ></ngx-datatable-column>
 
             <ngx-datatable-column
                 name="Name"
-                prop="sourceName"
+                prop="name"
+            ></ngx-datatable-column>
+
+            <ngx-datatable-column
+                name="Source"
+                prop="source"
             ></ngx-datatable-column>
         </ngx-datatable>
     </div>
 
-    <div class="fuse-widget-front">
-        <mat-card>
+    <div class="content p-24">
+        <mat-card *ngIf="selectedObjects.length">
             <h4>
                 Object Candidates <small>({{ selected.length }})</small>
             </h4>
@@ -137,7 +135,7 @@
                                 <button
                                     mat-raised-button
                                     color="primary"
-                                    (click)="discardObj()"
+                                    (click)="discardObj(obj)"
                                 >
                                     No
                                 </button>

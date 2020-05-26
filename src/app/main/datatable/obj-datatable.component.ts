@@ -95,10 +95,10 @@ export class ObjDatatableComponent implements OnInit, OnDestroy {
             (coi) => (this.selectedCoi = coi)
         );
         this._httpClient
-            .get(`${this.apiBaseUrl}/news?url=${this.selectedCoi}`)
+            .get(`${this.apiBaseUrl}/object-nominator?coi=${this.selectedCoi}`)
             .pipe(takeUntil(this._unsubscribeAll))
-            .subscribe((articles: any) => {
-                this.rows = articles;
+            .subscribe((coiObjects: any) => {
+                this.rows = coiObjects;
                 this.loadingIndicator = false;
             });
 
@@ -119,16 +119,16 @@ export class ObjDatatableComponent implements OnInit, OnDestroy {
         this.selected.splice(0, this.selected.length);
         this.selected.push(...selected);
 
-        let objectTypes = ["Person", "Event", "Place"];
+        let objectTypes = ["Organization", "Person", "Event", "Place"];
 
         this.selectedObjects = [];
         this.selected.forEach((record) => {
             this.selectedObjects.push({
-                name: record.author,
-                type: "Person",
+                name: record.name,
+                type: record.entity_type,
                 // type:
                 //     objectTypes[Math.floor(Math.random() * objectTypes.length)],
-                source: record.sourceName,
+                source: record.source,
             });
         });
     }
@@ -145,8 +145,26 @@ export class ObjDatatableComponent implements OnInit, OnDestroy {
         console.log("createObj");
     }
 
-    discardObj() {
-        console.log("discardObj");
+    testChange(obj) {
+        console.log(obj);
+    }
+
+    /**
+     *
+     * @param candidateObj
+     */
+    discardObj(candidateObj: any): void {
+        this.selectedObjects = this.selectedObjects.filter(
+            (obj) => obj !== candidateObj
+        );
+
+        let selected = this.selected.filter((obj) => {
+            obj.name !== candidateObj.name &&
+                obj.entity_type != candidateObj.type &&
+                obj.source != candidateObj.source;
+        });
+        this.selected.splice(0, this.selected.length);
+        this.selected.push(...selected);
     }
 
     // -----------------------------------------------------------------------------------------------------

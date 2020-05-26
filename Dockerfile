@@ -1,4 +1,6 @@
 # FROM node:13.3.0 AS compile-image
+# docker pull stefanscherer/node-windows
+# FROM stefanscherer/node-windows AS compile-image
 FROM node:12.2.0 AS compile-image
 
 # install chrome for protractor tests
@@ -14,7 +16,7 @@ ENV PATH /app/node_modules/.bin:$PATH
 
 # install and cache app dependencies
 ADD package.json /app/package.json
-RUN npm install --no-progress --ignore-optional
+RUN npm install
 RUN npm install -g @angular/cli@9.0.1
 
 # add app

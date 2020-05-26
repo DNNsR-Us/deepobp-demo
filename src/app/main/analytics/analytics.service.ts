@@ -1,19 +1,17 @@
 import { Injectable, Optional, Inject } from "@angular/core";
 import { HttpClient } from "@angular/common/http";
 
-import {
-    ActivatedRouteSnapshot,
-    RouterStateSnapshot,
-} from "@angular/router";
+import { ActivatedRouteSnapshot, RouterStateSnapshot } from "@angular/router";
 import { Observable } from "rxjs";
 import { environment } from "environments/environment";
+import { SharedService } from "../shared.service";
 
 @Injectable()
 export class AnalyticsDashboardService {
     public widgets = {
         widget2: {
             coi: {
-                value: "NFL",
+                value: "",
                 type: "dictionary",
             },
             chartType: "bar",
@@ -77,11 +75,17 @@ export class AnalyticsDashboardService {
      */
     constructor(
         private _httpClient: HttpClient,
+        private _sharedService: SharedService,
         @Inject("coi") @Optional() public coi?: string,
         @Inject("useFad") @Optional() public useFad?: boolean
     ) {
-        this.coi = coi || "nfl";
+        if (coi) {
+            this.coi = coi;
+        } else {
+            this._sharedService.sharedCoi.subscribe((coi) => (this.coi = coi));
+        }
         this.useFad = useFad || true;
+        this.widgets.widget2.coi.value = coi;
     }
 
     /**
