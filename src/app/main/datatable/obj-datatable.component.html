@@ -113,7 +113,7 @@
                     let-row="row"
                 >
                     <ul>
-                        <li *ngFor="let link of value"><a href="{{ link }}"> {{ link }} </a></li>
+                        <li *ngFor="let link of value"><a href="{{ link }}"> {{ link | htmlTitle }} </a></li>
                     </ul>
                     <!-- </ng-template>
                 <ng-template let-row="row" let-rowIndex="rowIndex">

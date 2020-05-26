@@ -12,6 +12,7 @@ import { ObjectNominatorComponent } from "app/main/datatable/dialogs/object-nomi
 
 import { SharedService } from "../shared.service";
 import { HighlightPipe } from "../../pipe/highlight.pipe";
+import { HtmlTitlePipe } from "../../pipe/html-title.pipe";
 
 interface Coi {
     value: string;
@@ -24,7 +25,7 @@ interface Coi {
     styleUrls: ["./obj-datatable.component.scss"],
     encapsulation: ViewEncapsulation.None,
     animations: fuseAnimations,
-    providers: [HighlightPipe],
+    providers: [HighlightPipe, HtmlTitlePipe],
 })
 export class ObjDatatableComponent implements OnInit, OnDestroy {
     // dialogRef: any;
@@ -63,13 +64,15 @@ export class ObjDatatableComponent implements OnInit, OnDestroy {
      * @param {MatDialog} _matDialog
      * @param {SharedService} _sharedService
      * @param {HighlightPipe} highlight
+     * @param {HtmlTitlePipe} htmlTitle
      *
      */
     constructor(
         private _httpClient: HttpClient,
         private _matDialog: MatDialog,
         private _sharedService: SharedService,
-        private highlight: HighlightPipe
+        private highlight: HighlightPipe,
+        private htmlTitle: HtmlTitlePipe
     ) {
         // Set the defaults
         this.loadingIndicator = true;

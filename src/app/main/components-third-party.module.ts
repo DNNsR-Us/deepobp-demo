@@ -21,6 +21,7 @@ import { MatFormFieldModule } from "@angular/material/form-field";
 import { ReadbookComponent } from "./readbook/readbook.component";
 import { SharedService } from "./shared.service";
 import { HighlightPipe } from "../pipe/highlight.pipe";
+import { HtmlTitlePipe } from "app/pipe/html-title.pipe";
 
 // import { DemoComponent } from './demo/demo.component';
 
@@ -44,6 +45,7 @@ const routes = [
         ObjectNominatorComponent,
         ReadbookComponent,
         HighlightPipe,
+        HtmlTitlePipe,
     ],
     imports: [
         RouterModule.forChild(routes),
@@ -67,6 +69,7 @@ const routes = [
     providers: [
         SharedService,
         HighlightPipe,
+        HtmlTitlePipe,
         // KnowledgeBaseService
     ],
     entryComponents: [ObjectNominatorComponent],
