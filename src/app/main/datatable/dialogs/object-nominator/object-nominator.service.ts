@@ -77,7 +77,6 @@ export class ObjectNominatorService {
         const headers = new HttpHeaders()
             .set("cache-control", "no-cache")
             .set("content-type", "application/json")
-            .set("passphrase", "Password1"); // store this somewhere secure
 
         return new Promise((resolve, reject) => {
             this._httpClient
