@@ -44,20 +44,7 @@ export class ObjectNominatorComponent implements OnInit, OnDestroy {
     ngOnInit(): void {
         // Reactive Form
         this.form = this._formBuilder.group({
-            createdDate: [
-                {
-                    value: new Date(),
-                    disabled: true,
-                },
-                Validators.required,
-            ],
-            createdBy: [
-                {
-                    value: "ReadyUser1",
-                    disabled: true,
-                },
-                Validators.required,
-            ],
+
             firstName: ["", Validators.required],
             middleName: [""],
             lastName: ["", Validators.required],
@@ -80,8 +67,6 @@ export class ObjectNominatorComponent implements OnInit, OnDestroy {
             dateOfBirth: this._data.extra.dob,
             source: this._data.article.source,
             classification: this._data.extra.classification,
-            createdDate: this.todayDate,
-            createdBy: this._data.extra.createdBy,
         });
     }
 
