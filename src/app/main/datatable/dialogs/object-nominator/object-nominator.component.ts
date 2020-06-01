@@ -96,6 +96,7 @@ export class ObjectNominatorComponent implements OnInit, OnDestroy {
             source: ["", Validators.required],
             classification: ["", Validators.required],
             url: [""],
+            urlsIncluded: [""],
         });
 
         this.setValue();
@@ -113,6 +114,7 @@ export class ObjectNominatorComponent implements OnInit, OnDestroy {
             source: this._data.article.source,
             classification: this._data.extra.classification,
             url: this._data.article.url,
+            urlsIncluded: this._data.extra.urlsIncluded
         });
     }
 
@@ -138,12 +140,12 @@ export class ObjectNominatorComponent implements OnInit, OnDestroy {
 
         let res = {};
         let message = "";
-        const createReports = true;
+
         try {
             res = await this._objectNominatorService.postObject(ibObject);
             this.objectId = res["id"];
 
-            if (createReports === true) {
+            if (this.form.value.urlsIncluded === true) {
                 console.log(this.form.value.url);
                 for (let i = 0; i < this.form.value.url.length; i++) {
                     this.createReport(res["id"], this.form.value.url[i]);

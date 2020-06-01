@@ -1,12 +1,11 @@
 @import "src/@fuse/scss/fuse";
 
 .object-nominator-dialog {
-
-    @include media-breakpoint('xs') {
+    @include media-breakpoint("xs") {
         width: 100%;
     }
 
-    @include media-breakpoint('gt-xs') {
+    @include media-breakpoint("gt-xs") {
         width: 720px;
     }
 
@@ -18,5 +17,16 @@
         max-height: 85vh;
         display: flex;
         flex-direction: column;
+    }
+
+    .invisible {
+        display: block;
+        visibility: hidden;
+        height: 0;
+        width: 0;
+    }
+
+    .url-checkbox {
+        margin-bottom: 20px;
     }
 }
