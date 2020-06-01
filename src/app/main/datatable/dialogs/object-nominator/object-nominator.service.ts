@@ -60,6 +60,30 @@ export class ObjectNominatorService {
                     headers,
                 })
                 .subscribe((response: any) => {
+                    // console.log(response);
+                    resolve(response);
+
+                    // this.loadingIndicator = false;
+                });
+        });
+    }
+
+    /**
+     * Create an object in Intelbook - Async function
+     *
+     * @returns {Promise<any>}
+     */
+    postReport(objectId, body): Promise<any> {
+        return new Promise((resolve, reject) => {
+            const headers = new HttpHeaders()
+                .set("cache-control", "no-cache")
+                .set("content-type", "application/json");
+
+            this._httpClient
+                .post(`${this.intelbookBaseUrl}/uom_v2.1/objects/${objectId}/reports`, body, {
+                    headers,
+                })
+                .subscribe((response: any) => {
                     console.log(response);
                     resolve(response);
 
@@ -76,7 +100,7 @@ export class ObjectNominatorService {
     getObjects(): Promise<any> {
         const headers = new HttpHeaders()
             .set("cache-control", "no-cache")
-            .set("content-type", "application/json")
+            .set("content-type", "application/json");
 
         return new Promise((resolve, reject) => {
             this._httpClient

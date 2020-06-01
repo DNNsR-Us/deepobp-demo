@@ -1,12 +1,12 @@
-export class IbObject {
+export class IbReport {
     coi: {} = {
         id: 41874,
         name: "",
     };
     name: string;
     classification: string = "U";
+    url: string;
     typeId: string = "196_38669"; // default - 'Organization' object type
-    source: string;
     countries: [{}] = [
         {
             country: {

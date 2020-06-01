@@ -128,6 +128,7 @@ export class ObjDatatableComponent implements OnInit, OnDestroy {
                 name: record.name,
                 type: record.entity_type,
                 source: record.source,
+                url: record.url,
             });
         });
     }
