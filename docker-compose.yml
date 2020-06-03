@@ -12,3 +12,8 @@ services:
       - '/app/node_modules'
     ports:
       - '4201:4200'
+
+networks:
+    default:
+        external:
+            name: deepobp-demo-backend_deepobp-frontend
