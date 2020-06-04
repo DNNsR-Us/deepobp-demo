@@ -108,6 +108,19 @@
             </mat-form-field>
         </div>
 
+        <div class="url-checkbox" xLayout="row" fxLayoutAlign="start center" fxFlex="33">
+            Include URLs as Reports?&nbsp; <mat-checkbox
+                matInput
+                formControlName="urlsIncluded"
+            ></mat-checkbox>
+        </div>
+
+        <div fxLayout="row" fxLayoutAlign="start center" fxFlex="1 0 auto">
+            <mat-form-field class="invisible" appearance="outline" fxFlex="33">
+                <input matInput formControlName="url" />
+            </mat-form-field>
+        </div>
+
         <div fxLayout="row" fxLayoutAlign="start center" fxFlex="1 0 auto">
             <mat-form-field appearance="outline" fxFlex="100">
                 <mat-label>Classification</mat-label>

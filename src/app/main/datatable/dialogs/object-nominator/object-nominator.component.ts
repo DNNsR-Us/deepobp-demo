@@ -14,6 +14,8 @@ import { ObjectNominatorService } from "./object-nominator.service";
 import { IbObject } from "../../../../models/ibobject";
 import { MatSnackBar } from "@angular/material/snack-bar";
 import { SharedService } from "app/main/shared.service";
+import { IbReport } from "app/models/Ibreport";
+import { HtmlTitlePipe } from "app/pipe/html-title.pipe";
 
 @Injectable({
     providedIn: "root",
@@ -47,6 +49,8 @@ export class ObjectNominatorComponent implements OnInit, OnDestroy {
         },
     };
 
+    objectId: string;
+
     // Private
     private _unsubscribeAll: Subject<any>;
 
@@ -58,6 +62,7 @@ export class ObjectNominatorComponent implements OnInit, OnDestroy {
      * @param {FormBuilder} _formBuilder
      * @param {ObjectNominatorService} _objectNominatorService
      * @param {MatSnackBar} _snackBar
+     * @param { HtmlTitlePipe } _htmlTitle
      */
     constructor(
         public matDialogRef: MatDialogRef<ObjectNominatorComponent>,
@@ -65,6 +70,7 @@ export class ObjectNominatorComponent implements OnInit, OnDestroy {
         private _formBuilder: FormBuilder,
         private _objectNominatorService: ObjectNominatorService,
         private _snackBar: MatSnackBar,
+        private _htmlTitle: HtmlTitlePipe,
         private _sharedService: SharedService,
         @Inject("coi") @Optional() public coi?: string
     ) {
@@ -89,6 +95,8 @@ export class ObjectNominatorComponent implements OnInit, OnDestroy {
             dateOfBirth: [""],
             source: ["", Validators.required],
             classification: ["", Validators.required],
+            url: [""],
+            urlsIncluded: [""],
         });
 
         this.setValue();
@@ -105,6 +113,8 @@ export class ObjectNominatorComponent implements OnInit, OnDestroy {
             dateOfBirth: this._data.extra.dob,
             source: this._data.article.source,
             classification: this._data.extra.classification,
+            url: this._data.article.url,
+            urlsIncluded: this._data.extra.urlsIncluded
         });
     }
 
@@ -120,6 +130,8 @@ export class ObjectNominatorComponent implements OnInit, OnDestroy {
     async createObject() {
         let ibObject = new IbObject();
         ibObject.name = this.form.value.name;
+        console.log("source is " + this.form.value.source);
+        ibObject.source = this.form.value.source;
 
         let objectType = `${this.form.value.objectType}`;
 
@@ -128,13 +140,53 @@ export class ObjectNominatorComponent implements OnInit, OnDestroy {
 
         let res = {};
         let message = "";
+
         try {
             res = await this._objectNominatorService.postObject(ibObject);
+            this.objectId = res["id"];
+
+            if (this.form.value.urlsIncluded === true) {
+                console.log(this.form.value.url);
+                for (let i = 0; i < this.form.value.url.length; i++) {
+                    this.createReport(res["id"], this.form.value.url[i]);
+                }
+            }
+
             message = "Success - Object created in Intelbook";
         } catch (error) {
             console.log(error);
             message = error.message;
         }
+        this._snackBar.open(message, null, {
+            duration: 3000,
+            horizontalPosition: "center",
+            verticalPosition: "top",
+        });
+        setTimeout(() => {
+            this.matDialogRef.close();
+        }, 4000);
+    }
+
+    async createReport(objectId: string, url: string) {
+        let ibReport = new IbReport();
+        ibReport.name = this._htmlTitle.transform(url);
+        ibReport.url = url;
+
+        ibReport.coi["name"] = "Deep OBP - " + this.getCoiName();
+
+        let res = {};
+        let message = "";
+        try {
+            res = await this._objectNominatorService.postReport(
+                objectId,
+                ibReport
+            );
+            message = "Success - Report created in Intelbook";
+        } catch (error) {
+            console.log(error);
+            message = error.message;
+        }
+
         this._snackBar.open(message, null, {
             duration: 3000,
             horizontalPosition: "center",
