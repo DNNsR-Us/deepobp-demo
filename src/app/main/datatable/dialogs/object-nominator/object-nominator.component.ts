@@ -37,14 +37,14 @@ export class ObjectNominatorComponent implements OnInit, OnDestroy {
         nfl: {
             Event: "199_38615",
             Organization: "196_38669",
-            Person: "195_38675",
+            People: "195_38675",
             Venue: "194_38683",
         },
         covid: {
             Recovered: "199_34911",
             Event: "195_45428",
             Organization: "194_45442",
-            Person: "196_45414",
+            People: "196_45414",
             Venue: "197_45401",
         },
     };
