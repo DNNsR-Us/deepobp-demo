@@ -7,12 +7,14 @@ export const environment = {
     hmr: false,
     // Local env
 //    apiBaseUrl: "http://127.0.0.1:5001",
-    intelbookBaseUrl: "https://kubemaster-trunk-1.udev.six3/services",
+//    intelbookBaseUrl: "https://kubemaster-trunk-1.udev.six3/services",
 
       // On lambda-quad-2
-//    apiBaseUrl: "http://127.0.0.1:5001",
     apiBaseUrl: "http://172.19.32.249:5001",
-//    intelbookBaseUrl: "https://kubemaster-trunk-1.udev.six3:32217/uom-core",
+
+    // on lambda-quad-2 use the following definition
+    intelbookBaseUrl: "https://kubemaster-trunk-1.udev.six3:30008/uom-core"
+
 };
 
 /*
