@@ -1,14 +1,14 @@
-version: '3.7'
+version: "3.7"
 
 services:
-
-  demo:
-    container_name: deepobp
-    build:
-      context: .
-      dockerfile: Dockerfile
-    volumes:
-      - '.:/app'
-      - '/app/node_modules'
-    ports:
-      - '4201:4200'
+    demo:
+        restart: always
+        container_name: deepobp
+        build:
+            context: .
+            dockerfile: Dockerfile
+        volumes:
+            - ".:/app"
+            - "/app/node_modules"
+        ports:
+            - "4201:4200"

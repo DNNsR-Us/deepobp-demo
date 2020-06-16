@@ -11,7 +11,9 @@ import { IbObject } from "../../../../models/ibobject";
 })
 export class ObjectNominatorService {
     intelbookBaseUrl: string = environment.intelbookBaseUrl;
-
+    apiBaseUrl: string = environment.apiBaseUrl;
+    currentUrl: string = "";
+    useUrl: string;
     /**
      * Constructor
      *
@@ -23,6 +25,13 @@ export class ObjectNominatorService {
     ) {
         if (body) {
             this.body = body;
+        }
+        this.currentUrl = window.location.href;
+        // Post to proxy endpoint if not running locally
+        if (this.currentUrl.includes("localhost")) {
+            this.useUrl = `${this.intelbookBaseUrl}/uom_v2.1`;
+        } else {
+            this.useUrl = this.apiBaseUrl;
         }
     }
 
@@ -55,15 +64,14 @@ export class ObjectNominatorService {
                 .set("cache-control", "no-cache")
                 .set("content-type", "application/json");
 
+            console.log("this.currentUrl is ", this.currentUrl);
+
             this._httpClient
-                .post(`${this.intelbookBaseUrl}/uom_v2.1/objects`, body, {
+                .post(`${this.useUrl}/objects`, body, {
                     headers,
                 })
                 .subscribe((response: any) => {
-                    // console.log(response);
                     resolve(response);
-
-                    // this.loadingIndicator = false;
                 });
         });
     }
@@ -80,14 +88,12 @@ export class ObjectNominatorService {
                 .set("content-type", "application/json");
 
             this._httpClient
-                .post(`${this.intelbookBaseUrl}/uom_v2.1/objects/${objectId}/reports`, body, {
+                .post(`${this.useUrl}/objects/${objectId}/reports`, body, {
                     headers,
                 })
                 .subscribe((response: any) => {
                     console.log(response);
                     resolve(response);
-
-                    // this.loadingIndicator = false;
                 });
         });
     }
