@@ -22,6 +22,8 @@ import { ReadbookComponent } from "./readbook/readbook.component";
 import { SharedService } from "./shared.service";
 import { HighlightPipe } from "../pipe/highlight.pipe";
 import { HtmlTitlePipe } from "app/pipe/html-title.pipe";
+import { CytoscapeComponent } from "./cytoscape/cytoscape.component";
+import { NgCytoComponent } from "./ng-cyto/ng-cyto.component";
 
 // import { DemoComponent } from './demo/demo.component';
 
@@ -37,6 +39,14 @@ const routes = [
         path: "readbook",
         component: ReadbookComponent,
     },
+    {
+        path: "graph",
+        component: NgCytoComponent,
+    },
+    {
+        path: "cytoscape",
+        component: CytoscapeComponent,
+    },
 ];
 
 @NgModule({
@@ -46,6 +56,8 @@ const routes = [
         ReadbookComponent,
         HighlightPipe,
         HtmlTitlePipe,
+        CytoscapeComponent,
+        NgCytoComponent,
     ],
     imports: [
         RouterModule.forChild(routes),
