@@ -47,6 +47,7 @@
         "chart.js": "2.9.3",
         "classlist.js": "1.1.20150312",
         "cytoscape": "^3.2.8",
+        "cytoscape-dagre": "2.2.2",
         "d3": "5.15.0",
         "date-fns": "2.9.0",
         "hammerjs": "2.0.8",

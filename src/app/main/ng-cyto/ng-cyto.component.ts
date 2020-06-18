@@ -13,6 +13,10 @@ import {
 // import * as cytoscape from "cytoscape";
 declare var cytoscape: any;
 
+import dagre from "cytoscape-dagre";
+
+cytoscape.use(dagre);
+
 @Component({
     selector: "ng2-cytoscape",
     template: '<div id="cy" class="cy"></div>',
@@ -39,7 +43,18 @@ export class NgCytoComponent implements OnChanges, AfterViewInit {
 
     @ViewChild("cy") element: ElementRef;
 
-    public constructor(private renderer: Renderer2, private el: ElementRef) {}
+    public constructor(private renderer: Renderer2, private el: ElementRef) {
+        this.layout = this.layout || {
+            name: "grid",
+            directed: true,
+            padding: 0,
+        };
+
+        this.zoom = this.zoom || {
+            min: 0.1,
+            max: 1.5,
+        };
+    }
 
     ngAfterViewInit() {
         let cy = cytoscape({
@@ -88,17 +103,6 @@ export class NgCytoComponent implements OnChanges, AfterViewInit {
                 rows: 1,
             },
         });
-        this.layout = this.layout || {
-            name: "grid",
-            directed: true,
-            padding: 0,
-        };
-
-        this.zoom = this.zoom || {
-            min: 0.1,
-            max: 1.5,
-        };
-
         this.style =
             this.style ||
             cy
