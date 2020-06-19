@@ -64,15 +64,23 @@ export class NgCytoComponent implements OnChanges, AfterViewInit {
                 // list of graph elements to start with
                 {
                     // node a
-                    data: { id: "a" },
+                    data: { id: "a", label: "label a", colorCode: "red" },
                 },
                 {
                     // node b
-                    data: { id: "b" },
+                    data: { id: "b", label: "label b" },
+                },
+                {
+                    // node c
+                    data: { id: "c", label: "label c" },
                 },
                 {
                     // edge ab
                     data: { id: "ab", source: "a", target: "b" },
+                },
+                {
+                    // edge ac
+                    data: { id: "ac", source: "a", target: "c" },
                 },
             ],
 
@@ -82,7 +90,8 @@ export class NgCytoComponent implements OnChanges, AfterViewInit {
                     selector: "node",
                     style: {
                         "background-color": "#666",
-                        label: "data(id)",
+                        label: "data(label)",
+                        "text-outline-color": "blue",
                     },
                 },
 
@@ -145,6 +154,8 @@ export class NgCytoComponent implements OnChanges, AfterViewInit {
                     opacity: 0.25,
                     "text-opacity": 0,
                 });
+        console.log("dc of a: " + cy.$().dc({ root: "#a" }).degree);
+        console.log("dc of b: " + cy.$().dc({ root: "#b" }).degree);
     }
 
     public ngOnChanges(): any {
@@ -165,19 +176,20 @@ export class NgCytoComponent implements OnChanges, AfterViewInit {
             elements: this.elements,
         });
 
-        // cy.on("tap", "node", function (e) {
-        //     var node = e.target;
-        //     var neighborhood = node.neighborhood().add(node);
+        cy.on("tap", "node", function (e) {
+            var node = e.target;
+            var neighborhood = node.neighborhood().add(node);
 
-        //     cy.elements().addClass("faded");
-        //     neighborhood.removeClass("faded");
-        //     localselect.emit(node.data("name"));
-        // });
+            cy.elements().addClass("faded");
+            neighborhood.removeClass("faded");
+            localselect.emit(node.data("name"));
+        });
 
-        // cy.on("tap", function (e) {
-        //     if (e.target === cy) {
-        //         cy.elements().removeClass("faded");
-        //     }
-        // });
+        cy.on("tap", function (e) {
+            if (e.target === cy) {
+                console.log("tap on background");
+                cy.elements().removeClass("faded");
+            }
+        });
     }
 }
