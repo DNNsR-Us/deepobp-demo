@@ -24,6 +24,7 @@ import { SharedService } from "./shared.service";
 import { HighlightPipe } from "../pipe/highlight.pipe";
 import { HtmlTitlePipe } from "app/pipe/html-title.pipe";
 import { DeconflictComponent } from "./deconflict/deconflict.component";
+import { TruncatePipe } from "app/pipe/truncate.pipe";
 
 // import { DemoComponent } from './demo/demo.component';
 
@@ -53,6 +54,7 @@ const routes = [
         HighlightPipe,
         HtmlTitlePipe,
         DeconflictComponent,
+        TruncatePipe,
     ],
     imports: [
         RouterModule.forChild(routes),
