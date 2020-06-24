@@ -43,8 +43,10 @@
                                 randomly selected movies from each set. Movie
                                 pairs with both the highest and lowest
                                 similarity scores that exceed the threshold are
-                                returned. The number of movie pairs that exceed
-                                the threshold is also shown.
+                                returned. The number of objects returned
+                                represent those with a similarity score above
+                                the chosen threshold as compared to a second
+                                object. We expect on average 36 objects.
                             </p>
 
                             <div class="pb-4">
@@ -72,7 +74,8 @@
                     <!-- / Widget 1 -->
                     <div class="results p-12" *ngIf="result">
                         <span id="counts" class="pb-4"
-                            >Number of results exceeding threshold:
+                            >Number of objects with similarity scores exceeding
+                            threshold (out of 80):
                             {{ result.data.count_exceeding_threshold }}
                         </span>
 
@@ -80,74 +83,80 @@
                             Threshold: {{ result.data.threshold }}
                         </span>
 
-                        <div class="section-title">
-                            <div>
-                                <strong>
-                                   Highest Similarity Score Result
-                                </strong>
+                        <div *ngIf="result.data.highest.movie1">
+                            <div class="section-title">
+                                <div>
+                                    <strong>
+                                        Highest Similarity Score Result
+                                    </strong>
+                                </div>
+                                <div>
+                                    Similarity:
+                                    {{ result.data.highest.similarity }}
+                                </div>
                             </div>
-                            <div>
-                                Similarity:
-                                {{ result.data.highest.similarity }}
+
+                            <div class="box">
+                                <div id="imdb" class="p-4">
+                                    <span id="movie_title" class="pb-4"
+                                        >Movie 1:
+                                        {{ result.data.highest.movie1 }}</span
+                                    >
+                                    <strong>Plot:</strong>
+                                    {{
+                                        result.data.highest
+                                            .movie1_description[0].plot
+                                            | truncate
+                                    }}
+                                </div>
+                                <div id="wiki" class="p-4">
+                                    <span id="movie_title"
+                                        >Movie 2:
+                                        {{ result.data.highest.movie2 }}</span
+                                    >
+                                    <strong>Plot:</strong>
+                                    {{
+                                        result.data.highest
+                                            .movie2_description[0].plot
+                                            | truncate
+                                    }}
+                                </div>
+                            </div>
+
+                            <div class="section-title pt-16">
+                                <div>Lowest Similarity Score Result</div>
+                                <div>
+                                    Similarity:
+                                    {{ result.data.lowest.similarity }}
+                                </div>
+                            </div>
+                            <div class="box">
+                                <div id="imdb" class="p-4">
+                                    <span id="movie_title" class="pb-4"
+                                        >Movie 1:
+                                        {{ result.data.lowest.movie1 }}</span
+                                    >
+                                    <strong>Plot:</strong>
+                                    {{
+                                        result.data.lowest.movie1_description[0]
+                                            .plot | truncate
+                                    }}
+                                </div>
+                                <div id="wiki" class="p-4">
+                                    <span id="movie_title"
+                                        >Movie 2:
+                                        {{ result.data.lowest.movie2 }}</span
+                                    >
+                                    <strong>Plot:</strong>
+                                    {{
+                                        result.data.lowest.movie2_description[0]
+                                            .plot | truncate
+                                    }}
+                                </div>
                             </div>
                         </div>
 
-                        <div class="box">
-                            <div id="imdb" class="p-4">
-                                <span id="movie_title" class="pb-4"
-                                    >Movie 1:
-                                    {{ result.data.highest.movie1 }}</span
-                                >
-                                <strong>IMDB Plot:</strong>
-                                {{
-                                    result.data.highest.movie1_description[0]
-                                        .plot | truncate
-                                }}
-                            </div>
-                            <div id="wiki" class="p-4">
-                                <span id="movie_title"
-                                    >Movie 2:
-                                    {{ result.data.highest.movie2 }}</span
-                                >
-                                <strong>Wiki Plot:</strong>
-                                {{
-                                    result.data.highest.movie2_description[0]
-                                        .plot | truncate
-                                }}
-                            </div>
-                        </div>
-
-                        <div class="section-title pt-16">
-                            <div>Lowest Similarity Score Result</div>
-                            <div>
-                                Similarity:
-                                {{ result.data.lowest.similarity }}
-                            </div>
-                        </div>
-                        <div class="box">
-                            <div id="imdb" class="p-4">
-                                <span id="movie_title" class="pb-4"
-                                    >Movie 1:
-                                    {{ result.data.lowest.movie1 }}</span
-                                >
-                                <strong>IMDB Plot:</strong>
-                                {{
-                                    result.data.lowest.movie1_description[0]
-                                        .plot | truncate
-                                }}
-                            </div>
-                            <div id="wiki" class="p-4">
-                                <span id="movie_title"
-                                    >Movie 2:
-                                    {{ result.data.lowest.movie2 }}</span
-                                >
-                                <strong>Wiki Plot:</strong>
-                                {{
-                                    result.data.lowest.movie2_description[0]
-                                        .plot | truncate
-                                }}
-                            </div>
-                        </div>
+                        <!-- end results -->
                     </div>
                 </div>
             </div>

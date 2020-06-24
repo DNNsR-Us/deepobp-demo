@@ -35,11 +35,26 @@ export class DeconflictComponent implements OnInit {
 
     async getDeconflictionResults() {
         try {
-            this.result = await this._deconflictService.getDecon(
-                this.threshold
-            );
+            const res = await this._deconflictService.getDecon(this.threshold);
+
+            if (!this.isEmpty(res.data)) {
+                this.result = res;
+            } else {
+                this.result = {
+                    'data': {
+                        'count_exceeding_threshold': 0,
+                        'highest': {},
+                        'lowest': {},
+                        'threshold': this.threshold
+                    }
+                }
+            }
         } catch (error) {
             console.log(error);
         }
+    }
+
+    isEmpty(obj) {
+        return Object.keys(obj).length === 0;
     }
 }
