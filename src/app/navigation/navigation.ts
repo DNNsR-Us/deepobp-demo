@@ -1,19 +1,19 @@
-import { FuseNavigation } from '@fuse/types';
+import { FuseNavigation } from "@fuse/types";
 
 export const navigation: FuseNavigation[] = [
     {
-        id       : 'navigation',
-        title    : 'Navigation',
+        id: "navigation",
+        title: "Navigation",
         // translate: 'NAV.APPLICATIONS',
-        type     : 'group',
-        children : [
+        type: "group",
+        children: [
             {
-                id       : 'dashboard',
-                title    : 'Dashboard',
+                id: "dashboard",
+                title: "Dashboard",
                 // translate: 'NAV.SAMPLE.TITLE',
-                type     : 'item',
-                icon     : 'dashboard', // or bar_chart
-                url      : '/',
+                type: "item",
+                icon: "dashboard", // or bar_chart
+                url: "/",
                 // badge    : {
                 //     title    : '25',
                 //     translate: 'NAV.SAMPLE.BADGE',
@@ -22,28 +22,36 @@ export const navigation: FuseNavigation[] = [
                 // }
             },
             {
-                id       : 'dictionary',
-                title    : 'FA Dictionary',
-                type     : 'item',
-                icon     : 'library_books',
-                url      : '/fad',
+                id: "dictionary",
+                title: "FA Dictionary",
+                type: "item",
+                icon: "library_books",
+                url: "/fad",
             },
             {
-                id       : 'datatable',
-                title    : 'Object Nominator',
+                id: "datatable",
+                title: "Object Nominator",
                 // translate: 'NAV.DEMO.TITLE',
-                type     : 'item',
-                icon     : 'list', // or collections
-                url      : '/datatable',
+                type: "item",
+                icon: "list", // or collections
+                url: "/datatable",
             },
             {
-                id       : 'readbook',
-                title    : 'Create Readbook',
+                id: "readbook",
+                title: "Create Readbook",
                 // translate: 'NAV.DEMO.TITLE',
-                type     : 'item',
-                icon     : 'book',
-                url      : '/readbook',
-            }
-        ]
-    }
+                type: "item",
+                icon: "book",
+                url: "/readbook",
+            },
+            {
+                id: "deconflict",
+                title: "Deconfliction Example",
+                // translate: 'NAV.DEMO.TITLE',
+                type: "item",
+                icon: "book",
+                url: "/deconflict",
+            },
+        ],
+    },
 ];

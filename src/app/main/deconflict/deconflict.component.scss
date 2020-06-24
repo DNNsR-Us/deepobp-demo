@@ -1,0 +1,41 @@
+
+p {
+    font-size: 1.2em;
+}
+.results {
+    width: 100%;
+}
+
+#counts {
+    font-size: larger;
+    display: block;
+}
+
+#movie_title {
+    font-size: 1.2em;
+    font-weight: bold;
+    display: block;
+}
+
+.box {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+}
+#imdb {
+    // display: block;
+    // position: relative;
+    // float: left;
+    font-size: 0.9em;
+    max-width: 50%;
+    min-width: 50%;
+    // width: 40%;
+}
+
+#wiki {
+    // display: block;
+    // position: relative;
+    // float: right;
+    font-size: 0.9em;
+    // width: 40%;
+}
