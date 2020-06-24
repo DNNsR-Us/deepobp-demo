@@ -32,7 +32,7 @@
                         >
                             <p>
                                 This demonstration illustrates the application
-                                of TF/IDF (term frequency-inverse document
+                                of TF-IDF (term frequency-inverse document
                                 frequency) analysis on a set of 90 movie
                                 descriptions from IMDB as compared with the same
                                 set of movies' descriptions from Wikimedia.
@@ -40,11 +40,11 @@
                             <p>
                                 When the "Run Deconfliction" button is clicked,
                                 a similarity matrix is calculated between 40
-                                randomly selected movies from each set. The
-                                movies with the lowest similarity score that
-                                exceeds the threshold are returned. The number
-                                of movie pairs that exceed the threshold is also
-                                shown.
+                                randomly selected movies from each set. Movie
+                                pairs with both the highest and lowest
+                                similarity scores that exceed the threshold are
+                                returned. The number of movie pairs that exceed
+                                the threshold is also shown.
                             </p>
 
                             <div class="pb-4">
@@ -76,26 +76,76 @@
                             {{ result.data.count_exceeding_threshold }}
                         </span>
 
-                        <span> Similarity: {{ result.data.similarity }} </span
-                        ><br />
-                        <span class="pb-4">
+                        <span class="threshold pb-4">
                             Threshold: {{ result.data.threshold }}
                         </span>
+
+                        <div class="section-title">
+                            <div>
+                                <strong>
+                                   Highest Similarity Score Result
+                                </strong>
+                            </div>
+                            <div>
+                                Similarity:
+                                {{ result.data.highest.similarity }}
+                            </div>
+                        </div>
 
                         <div class="box">
                             <div id="imdb" class="p-4">
                                 <span id="movie_title" class="pb-4"
-                                    >Movie 1: {{ result.data.movie1 }}</span
+                                    >Movie 1:
+                                    {{ result.data.highest.movie1 }}</span
                                 >
                                 <strong>IMDB Plot:</strong>
-                                {{ result.data.movie1_description[0].plot }}
+                                {{
+                                    result.data.highest.movie1_description[0]
+                                        .plot | truncate
+                                }}
                             </div>
                             <div id="wiki" class="p-4">
                                 <span id="movie_title"
-                                    >Movie 2: {{ result.data.movie2 }}</span
+                                    >Movie 2:
+                                    {{ result.data.highest.movie2 }}</span
                                 >
                                 <strong>Wiki Plot:</strong>
-                                {{ result.data.movie2_description[0].plot }}
+                                {{
+                                    result.data.highest.movie2_description[0]
+                                        .plot | truncate
+                                }}
+                            </div>
+                        </div>
+
+                        <div class="section-title pt-16">
+                            <div>Lowest Similarity Score Result</div>
+                            <div>
+                                Similarity:
+                                {{ result.data.lowest.similarity }}
+                            </div>
+                        </div>
+                        <div class="box">
+                            <div id="imdb" class="p-4">
+                                <span id="movie_title" class="pb-4"
+                                    >Movie 1:
+                                    {{ result.data.lowest.movie1 }}</span
+                                >
+                                <strong>IMDB Plot:</strong>
+                                {{
+                                    result.data.lowest.movie1_description[0]
+                                        .plot | truncate
+                                }}
+                            </div>
+                            <div id="wiki" class="p-4">
+                                <span id="movie_title"
+                                    >Movie 2:
+                                    {{ result.data.lowest.movie2 }}</span
+                                >
+                                <strong>Wiki Plot:</strong>
+                                {{
+                                    result.data.lowest.movie2_description[0]
+                                        .plot | truncate
+                                }}
                             </div>
                         </div>
                     </div>
