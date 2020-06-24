@@ -1,0 +1,106 @@
+<div id="dashboard-analytics" class="page-layout blank">
+    <!-- HEADER -->
+    <div class="header accent p-24">
+        <div
+            class="px-16 border-bottom"
+            fxLayout="row wrap"
+            fxLayoutAlign="space-between center"
+        >
+            <div fxFlex class="py-16 h3">
+                <h1>Object Based Production</h1>
+                <h2>Deconfliction Example</h2>
+            </div>
+        </div>
+    </div>
+    <!-- / HEADER -->
+    <div class="content">
+        <div class="center mr-lg-16">
+            <div
+                class="mb-12"
+                fxLayout="row"
+                fxLayoutAlign="space-evenly center"
+                fxLayout.gt-sm="row"
+                fxLayoutAlign.gt-sm="space-evenly center"
+            >
+                <!-- Widget 1 - Objects Nominated -->
+                <div class="widget p-16" fxFlex="100" fxFlex.gt-sm="75">
+                    <div class="fuse-card auto-width h-360">
+                        <div
+                            class="h-320 px-16"
+                            fxLayout="column"
+                            fxLayoutAlign="space-around center"
+                        >
+                            <p>
+                                This demonstration illustrates the application
+                                of TF/IDF (term frequency/inverse term
+                                frequency) analysis on a set of 90 movie
+                                descriptions from IMDB as compared with the same
+                                set of movies' descriptions from Wikimedia.
+                            </p>
+                            <p>
+                                When the "Run Deconfliction" button is clicked,
+                                a similarity matrix is calculated between 40
+                                randomly selected movies from each set. The
+                                movies with the lowest similarity score that
+                                exceeds the threshold are returned. The number
+                                of movie pairs that exceed the threshold is also
+                                shown.
+                            </p>
+
+                            <div class="pb-4">
+                                Select a threshold
+                                <mat-slider
+                                    thumbLabel="true"
+                                    tickInterval="5"
+                                    step="5"
+                                    min="0"
+                                    max="100"
+                                    [value]="threshold"
+                                    (change)="onSliderChange($event)"
+                                ></mat-slider>
+                            </div>
+
+                            <button
+                                mat-raised-button
+                                color="primary"
+                                (click)="getDeconflictionResults()"
+                            >
+                                Run Deconfliction
+                            </button>
+                        </div>
+                    </div>
+                    <!-- / Widget 1 -->
+                    <div class="results p-12" *ngIf="result">
+                        <span id="counts" class="pb-4"
+                            >Number of results exceeding threshold:
+                            {{ result.data.count_exceeding_threshold }}
+                        </span>
+
+                        <span> Similarity: {{ result.data.similarity }} </span
+                        ><br />
+                        <span class="pb-4">
+                            Threshold: {{ result.data.threshold }}
+                        </span>
+
+                        <div class="box">
+                            <div id="imdb" class="p-4">
+                                <span id="movie_title" class="pb-4"
+                                    >Movie 1: {{ result.data.movie1 }}</span
+                                >
+                                <strong>IMDB Plot:</strong>
+                                {{ result.data.movie1_description[0].plot }}
+                            </div>
+                            <div id="wiki" class="p-4">
+                                <span id="movie_title"
+                                    >Movie 2: {{ result.data.movie2 }}</span
+                                >
+                                <strong>Wiki Plot:</strong>
+                                {{ result.data.movie2_description[0].plot }}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
