@@ -1,0 +1,23 @@
+cytograph {
+    height: 50vh;
+    float: left;
+    position: relative;
+    border: solid #21c0c0;
+    width: 50em;
+}
+
+body {
+    font-family: helvetica;
+    font-size: 14px;
+}
+
+#cy {
+    border: solid;
+    border-width: 1;
+    height: 100%;
+}
+
+h1 {
+    opacity: 0.5;
+    font-size: 1em;
+}

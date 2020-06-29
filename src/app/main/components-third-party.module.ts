@@ -23,6 +23,8 @@ import { ReadbookComponent } from "./readbook/readbook.component";
 import { SharedService } from "./shared.service";
 import { HighlightPipe } from "../pipe/highlight.pipe";
 import { HtmlTitlePipe } from "app/pipe/html-title.pipe";
+import { CytoscapeComponent } from "./cytoscape/cytoscape.component";
+import { NgCytoComponent } from "./ng-cyto/ng-cyto.component";
 import { DeconflictComponent } from "./deconflict/deconflict.component";
 import { TruncatePipe } from "app/pipe/truncate.pipe";
 
@@ -41,8 +43,16 @@ const routes = [
         component: ReadbookComponent,
     },
     {
+        path: "graph",
+        component: NgCytoComponent,
+    },
+    {
         path: "deconflict",
         component: DeconflictComponent,
+    },
+    {
+        path: "cytoscape",
+        component: CytoscapeComponent,
     },
 ];
 
@@ -53,6 +63,8 @@ const routes = [
         ReadbookComponent,
         HighlightPipe,
         HtmlTitlePipe,
+        CytoscapeComponent,
+        NgCytoComponent,
         DeconflictComponent,
         TruncatePipe,
     ],
