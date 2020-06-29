@@ -53,6 +53,14 @@ export const navigation: FuseNavigation[] = [
                 url: "/graph",
             },
             {
+                id: "deconflict",
+                title: "Deconfliction Example",
+                // translate: 'NAV.DEMO.TITLE',
+                type: "item",
+                icon: "book",
+                url: "/deconflict",
+            },
+            {
                 id: "cytoscape",
                 title: "Cytoscape",
                 // translate: 'NAV.DEMO.TITLE',

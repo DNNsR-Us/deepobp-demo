@@ -18,12 +18,15 @@ import { MatCardModule } from "@angular/material/card";
 import { MatInputModule } from "@angular/material/input";
 import { MatSelectModule } from "@angular/material/select";
 import { MatFormFieldModule } from "@angular/material/form-field";
+import { MatSliderModule } from "@angular/material/slider";
 import { ReadbookComponent } from "./readbook/readbook.component";
 import { SharedService } from "./shared.service";
 import { HighlightPipe } from "../pipe/highlight.pipe";
 import { HtmlTitlePipe } from "app/pipe/html-title.pipe";
 import { CytoscapeComponent } from "./cytoscape/cytoscape.component";
 import { NgCytoComponent } from "./ng-cyto/ng-cyto.component";
+import { DeconflictComponent } from "./deconflict/deconflict.component";
+import { TruncatePipe } from "app/pipe/truncate.pipe";
 
 // import { DemoComponent } from './demo/demo.component';
 
@@ -44,6 +47,10 @@ const routes = [
         component: NgCytoComponent,
     },
     {
+        path: "deconflict",
+        component: DeconflictComponent,
+    },
+    {
         path: "cytoscape",
         component: CytoscapeComponent,
     },
@@ -58,6 +65,8 @@ const routes = [
         HtmlTitlePipe,
         CytoscapeComponent,
         NgCytoComponent,
+        DeconflictComponent,
+        TruncatePipe,
     ],
     imports: [
         RouterModule.forChild(routes),
@@ -77,6 +86,7 @@ const routes = [
 
         MatSelectModule,
         MatDatepickerModule,
+        MatSliderModule,
     ],
     providers: [
         SharedService,
