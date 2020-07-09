@@ -44,14 +44,14 @@ export const navigation: FuseNavigation[] = [
                 icon: "book",
                 url: "/readbook",
             },
-            {
-                id: "graph",
-                title: "Graph",
-                // translate: 'NAV.DEMO.TITLE',
-                type: "item",
-                icon: "book",
-                url: "/graph",
-            },
+            // {
+            //     id: "graph",
+            //     title: "Graph",
+            //     // translate: 'NAV.DEMO.TITLE',
+            //     type: "item",
+            //     icon: "book",
+            //     url: "/graph",
+            // },
             {
                 id: "deconflict",
                 title: "Deconfliction Example",
@@ -62,7 +62,7 @@ export const navigation: FuseNavigation[] = [
             },
             {
                 id: "cytoscape",
-                title: "Cytoscape",
+                title: "Deconfliction Graph",
                 // translate: 'NAV.DEMO.TITLE',
                 type: "item",
                 icon: "book",
